@@ -1,0 +1,63 @@
+// GLOBAL CLASSES USED THROUGHOUT THE SITE
+
+/* -------------------- GLOBAL CLASSES -------------------- */
+.wrapper {
+	@include size(960);
+	margin: auto;
+}
+
+
+
+/* -------------------- ELEMENT POSITION STYLES -------------------- */
+.fixed {
+	position: fixed !important;
+}
+.relative {
+	position: relative !important;
+}
+.absolute {
+	position: absolute !important;
+}
+.left {
+	@include settings(relative, null, null, left);
+}
+.right {
+	@include settings(relative, null, null, right);
+}
+.center {
+	@include settings(relative);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+/* -------------------- TYPOGRAPHIC STYLES -------------------- */
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-center {
+	text-align: center;
+}
+.hide-text {
+	text-indent: -9999px;
+	@include settings(null, hidden);
+}
+.bold {
+	font-weight: bold;
+}
+.italic {
+	font-style: italic;
+}
+.underline {
+	text-decoration: underline;
+}
+.uppercase {
+	text-transform: uppercase;
+}
+.lowercase {
+	text-transform: lowercase;
+}

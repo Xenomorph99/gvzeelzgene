@@ -1,0 +1,137 @@
+// Used to set an element as a flexbox
+@mixin flexbox($params:null) {
+	@if $params == null {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+	} @else if $params == "inline" {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-inline-flex;
+		display: inline-flex;
+	} @else {
+		display: $params;
+		display: $params;
+		display: $params;
+		display: $params;
+		display: $params;
+	}
+}
+
+// Used to set flexbox flow attributes on a flexbox container
+@mixin flexbox-flow($param1, $param2:null) {
+	@if $param2 == null {
+		@include flexbox-direction($param1);
+	} @else {
+		@include flexbox-direction($param1);
+		@include flexbox-wrap($param2);
+	}
+}
+
+// Used to set flexbox direction
+@mixin flexbox-direction($params) {
+	-webkit-box-flex-direction: $params;
+	-moz-box-flex-direction: $params;
+	-webkit-flex-direction: $params;
+	-ms-flex-direction: $params;
+	flex-direction: $params;
+}
+
+// Used to set flexbox wrap
+@mixin flexbox-wrap($params) {
+	-webkit-box-flex-wrap: $params;
+	-moz-box-flex-wrap: $params;
+	-webkit-flex-wrap: $params;
+	-ms-flex-wrap: $params;
+	flex-wrap: $params;
+}
+
+// Used to set flexbox justification
+@mixin flexbox-justify($params) {
+	-webkit-box-justify-content: $params;
+	-moz-box-justify-content: $params;
+	-webkit-justify-content: $params;
+	-ms-justify-content: $params;
+	justify-content: $params;
+}
+
+// Used to set the flexbox alignment
+@mixin flexbox-align($params) {
+	-webkit-box-align-content: $params;
+	-moz-box-align-content: $params;
+	-webkit-align-content: $params;
+	-ms-align-content: $params;
+	align-content: $params;
+}
+
+// Used to set the flex grow property
+@mixin flex-grow($params:null) {
+	@if $params == null {
+		-webkit-box-flex-grow: 0;
+		-moz-box-flex-grow: 0;
+		-webkit-flex-grow: 0;
+		-ms-flex-grow: 0;
+		flex-grow: 0;
+	} @else {
+		-webkit-box-flex-grow: $params;
+		-moz-box-flex-grow: $params;
+		-webkit-flex-grow: $params;
+		-ms-flex-grow: $params;
+		flex-grow: $params;
+	}
+}
+
+// Used to set the flex shrink property
+@mixin flex-shrink($params:null) {
+	@if $params == null {
+		-webkit-box-flex-shrink: 1;
+		-moz-box-flex-shrink: 1;
+		-webkit-flex-shrink: 1;
+		-ms-flex-shrink: 1;
+		flex-shrink: 1;
+	} @else {
+		-webkit-box-flex-shrink: $params;
+		-moz-box-flex-shrink: $params;
+		-webkit-flex-shrink: $params;
+		-ms-flex-shrink: $params;
+		flex-shrink: $params;
+	}
+}
+
+// Used to set the flex basis property
+@mixin flex-basis($params:null) {
+	@if $params == null {
+		-webkit-box-flex-basis: auto;
+		-moz-box-flex-basis: auto;
+		-webkit-flex-basis: auto;
+		-ms-flex-basis: auto;
+		flex-basis: auto;
+	} @else {
+		-webkit-box-flex-basis: $params;
+		-moz-box-flex-basis: $params;
+		-webkit-flex-basis: $params;
+		-ms-flex-basis: $params;
+		flex-basis: $params;
+	}
+}
+
+// Used to set the flex attributes of a flex element
+@mixin flex($params) {
+	-webkit-box-flex: $params;
+	-moz-box-flex: $params;
+	-webkit-flex: $params;
+	-ms-flex: $params;
+	flex: $params;
+}
+
+// Used to set the order number of a flex element
+@mixin order($num) {
+	-webkit-box-ordinal-group: $num;
+	-moz-box-ordinal-group: $num;
+	-ms-flex-order: $num;
+	-webkit-order: $num;
+	order: $num;
+}

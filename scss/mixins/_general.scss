@@ -1,0 +1,187 @@
+// Used as a shorthand for setting the display properties of an object
+@mixin settings($position:null, $overflow:null, $display:null, $float:null) {
+	@if $position == null {} @else {
+		position: $position;
+	}
+	@if $overflow == null {} @else {
+		overflow: $overflow;
+	}
+	@if $display == null {} @else {
+		display: $display;
+	}
+	@if $float == null {} @else {
+		float: $float;
+	}
+}
+
+// Used as a shorthand for setting the width and height properties of an object
+// NOTE: Pixels only
+@mixin size($width:null, $height:null, $widthImportant:null, $heightImportant:null) {
+	@if $width == null {} @else {
+		@if $widthImportant == null {
+			width: $width + px;
+		} @else {
+			width: $width + px !important;
+		}
+	}
+	@if $height == null {} @else {
+		@if $heightImportant == null {
+			height: $height + px;
+		} @else {
+			height: $height + px !important;
+		}
+	}
+}
+
+// Used to specify unique border sizes to each side of an element
+// NOTE: Pixels only
+@mixin border-size-unique($topSize:1, $rightSize:1, $bottomSize:1, $leftSize:1, $weight:solid, $color:black) {
+	border-top: $topSize + px $weight $color;
+	border-right: $rightSize + px $weight $color;
+	border-bottom: $bottomSize + px $weight $color;
+	border-left: $leftSize + px $weight $color;
+}
+
+// Used to set the border radius of an element where all corners have the same radius (rounded corners)
+// NOTE: Pixels only
+@mixin border-radius($size) {
+	-ms-border-radius: $size + px;
+	-o-border-radius: $size + px;
+	-moz-border-radius: $size + px;
+	-webkit-border-radius: $size + px;
+	border-radius: $size + px;
+}
+
+// Used to set the border radius of an element where all corners have uniqly specified radii (rounded corners)
+@mixin border-radius-unique($topLeft:0, $topRight:0, $bottomRight:0, $bottomLeft:0) {
+	-ms-border-top-left-radius: $topLeft + px;
+	-ms-border-top-right-radius: $topRight + px;
+	-ms-border-bottom-left-radius: $bottomLeft + px;
+	-ms-border-bottom-right-radius: $bottomRight + px;
+	-o-border-top-left-radius: $topLeft + px;
+	-o-border-top-right-radius: $topRight + px;
+	-o-border-bottom-left-radius: $bottomLeft + px;
+	-o-border-bottom-right-radius: $bottomRight + px;
+	-moz-border-top-left-radius: $topLeft + px;
+	-moz-border-top-right-radius: $topRight + px;
+	-moz-border-bottom-left-radius: $bottomLeft + px;
+	-moz-border-bottom-right-radius: $bottomRight + px;
+	-webkit-border-top-left-radius: $topLeft + px;
+	-webkit-border-top-right-radius: $topRight + px;
+	-webkit-border-bottom-left-radius: $bottomLeft + px;
+	-webkit-border-bottom-right-radius: $bottomRight + px;
+	border-top-left-radius: $topLeft + px;
+	border-top-right-radius: $topRight + px;
+	border-bottom-left-radius: $bottomLeft + px;
+	border-bottom-right-radius: $bottomRight + px;
+}
+
+// Used for adding either an inner shadow, drop shadow or both to an element
+@mixin box-shadow($param1, $param2:null) {
+	@if $param2 == null {
+		-ms-box-shadow: $param1;
+		-o-box-shadow: $param1;
+		-moz-box-shadow: $param1;
+		-webkit-box-shadow: $param1;
+		box-shadow: $param1;
+	} @else {
+		-ms-box-shadow: $param1, $param2;
+		-o-box-shadow: $param1, $param2;
+		-moz-box-shadow: $param1, $param2;
+		-webkit-box-shadow: $param1, $param2;
+		box-shadow: $param1, $param2;
+	}
+}
+
+// Used for rearranging a list horizontally instead of using its vertical default
+@mixin nav-list {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	> li {
+		display: block;
+		float: left;
+		&:last-child {
+			margin-right: 0px;
+		}
+	}
+}
+
+// Used to apply transitions to elements
+@mixin transition($param1:null, $param2:null, $param3:null) {
+	@if $param3 == null {
+		@if $param2 == null {
+			@if $param1 == null {
+				-ms-transition: all 300ms ease;
+				-o-transition: all 300ms ease;
+				-moz-transition: all 300ms ease;
+				-webkit-transition: all 300ms ease;
+				transition: all 300ms ease;
+			} @else {
+				-ms-transition: $param1;
+				-o-transition: $param1;
+				-moz-transition: $param1;
+				-webkit-transition: $param1;
+				transition: $param1;
+			}
+		} @else {
+			-ms-transition: $param1, $param2;
+			-o-transition: $param1, $param2;
+			-moz-transition: $param1, $param2;
+			-webkit-transition: $param1, $param2;
+			transition: $param1, $param2;
+		}
+	} @else {
+		-ms-transition: $param1, $param2, $param3;
+		-o-transition: $param1, $param2, $param3;
+		-moz-transition: $param1, $param2, $param3;
+		-webkit-transition: $param1, $param2, $param3;
+		transition: $param1, $param2, $param3;
+	}
+}
+
+// Used for skewing an element vertically
+@mixin skewY($degrees) {
+	-ms-transform: skewY($degrees + deg);
+	-o-transform: skewY($degrees + deg);
+	-moz-transform: skewY($degrees + deg);
+	-webkit-transform: skewY($degrees + deg);
+	transform: skewY($degrees + deg);
+}
+
+// Used for skewing an element horizontally
+@mixin skewX($degrees) {
+	-ms-transform: skewX($degrees + deg);
+	-o-transform: skewX($degrees + deg);
+	-moz-transform: skewX($degrees + deg);
+	-webkit-transform: skewX($degrees + deg);
+	transform: skewX($degrees + deg);
+}
+
+// Used for moving the position of an element
+@mixin translate($params) {
+	-ms-transform: translate($params);
+	-o-transform: translate($params);
+	-moz-transform: translate($params);
+	-webkit-transform: translate($params);
+	transform: translate($params);
+}
+
+// Used for scaling the size of an element
+@mixin scale($value-X, $value-Y) {
+	-ms-transform: scale($value-X, $value-Y);
+	-o-transform: scale($value-X, $value-Y);
+	-moz-transform: scale($value-X, $value-Y);
+	-webkit-transform: scale($value-X, $value-Y);
+	transform: scale($value-X, $value-Y);
+}
+
+// Used for modifying or removing default vender appearances - Defaults to 'none'
+@mixin appearance($params:none) {
+	-ms-appearance: $params;
+	-o-appearance: $params;
+	-moz-appearance: $params;
+	-webkit-apperance: $params;
+	appearance: $params;
+}

@@ -1,0 +1,34 @@
+// BLACK
+@function black($opacity) {
+	@return rgba(0, 0, 0, $opacity)
+}
+
+// WHITE
+@function white($opacity) {
+	@return rgba(255, 255, 255, $opacity)
+}
+
+// PRIMARY
+@function primary($opacity) {
+	@return rgba($primary, $opacity);
+}
+
+// SECONDARY
+@function secondary($opacity) {
+	@return rgba($secondary, $opacity);
+}
+
+// TERTIARY
+@function tertiary($opacity) {
+	@return rgba($tertiary, $opacity);
+}
+
+// ACCENT
+@function accent($opacity) {
+	@return rgba($accent, $opacity);
+}
+
+// SUPPORT
+@function support($opacity) {
+	@return rgba($support, $opacity);
+}

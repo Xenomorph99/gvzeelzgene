@@ -1,0 +1,4 @@
+// Definition of the path from the compiled CSS files to the image files
+@function imagePath($image) {
+	@return '../images/' + $image;
+}

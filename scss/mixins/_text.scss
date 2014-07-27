@@ -1,0 +1,73 @@
+// Used for setting the font values of an element
+// NOTE: Pixels only
+@mixin font($fontSize:16, $lineHeight:null, $fontWeight:null, $fontFamily:null) {
+	@if $lineHeight == null {
+		font-size: $fontSize + px;
+	} @else {
+		@if $fontWeight == null {
+			font-size: $fontSize + px;
+			line-height: $lineHeight + px;
+		} @else {
+			@if $fontFamily == null {
+				@if $fontWeight == inherit {
+					font-size: $fontSize + px;
+					line-height: $lineHeight + px;
+				} @else {
+					font-size: $fontSize + px;
+					line-height: $lineHeight + px;
+					font-weight: $fontWeight;
+				}
+			} @else {
+				@if $fontWeight == inherit {
+					font: $fontSize + px/$lineHeight + px $fontFamily;
+				} @else {
+					font: $fontWeight $fontSize + px/$lineHeight + px $fontFamily;
+				}
+			}
+		}
+	}
+}
+
+// Used for adding an embossing effect - based upon the 'box-shadow' mixin
+@mixin emboss($opacity1, $opacity2, $reverse:false) {
+	@if $reverse == false {
+		@include box-shadow(white($opacity1) 0 1px 0, inset black($opacity2) 0 1px 0);
+	} @else {
+		@include box-shadow(black($opacity2) 0 1px 0, inset white($opacity1) 0 1px 0);
+	}
+}
+
+// Used for adding a letterpress effect
+@mixin letterpress($opacity, $reverse:false, $dark:false) {
+	@if $dark == false {
+		@if $reverse == false {
+			text-shadow: white($opacity) 0 1px 0;
+		} @else {
+			text-shadow: white($opacity) 0 -1px 0;
+		}
+	} @else {
+		@if $reverse == false {
+			text-shadow: black($opacity) 0 1px 0;
+		} @else {
+			text-shadow: black($opacity) 0 -1px 0;
+		}
+	}
+}
+
+// Used for hiding text in favor of displaying an image instead
+@mixin hide-text {
+	color: transparent;
+	font: 0/0 a;
+	text-shadow: none;
+}
+
+// Used for adding antialiased text
+@mixin aliasing($params:null) {
+	@if $params == null {
+		-webkit-font-smoothing: subpixel-antialiased;
+		font-smoothing: subpixel-antialiased;
+	} @else {
+		-webkit-font-smoothing: $params;
+		font-smoothing: $params;
+	}
+}

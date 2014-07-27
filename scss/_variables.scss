@@ -1,0 +1,79 @@
+// GLOBAL VARIABLES AND FUNCTIONS USED THROUGHOUT THE PROJECT
+
+// Font Families
+$helvetica: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$times: "Times New Roman", Times, Serif;
+$georgia: "Georgia", Serif;
+
+// Font Settings
+$font: $helvetica;
+$baseFontSize: 20;
+$baseLineHeight: 24;
+$baseFontWeight: 100;
+$headerFontWeight: 700;
+
+// Color Scheme
+$primary: darkgray;
+$secondary: gray;
+$tertiary: lightgray;
+$accent: red;
+$support: gainsboro;
+
+// General Variables
+$bodyTextColor: black;
+$bodyBackgroundColor: white;
+$linkColor: blue;
+$linkHoverColor: lightblue;
+$selectionColor: white;
+$selectionBackgroundColor: red;
+$formElementHeight: 20;
+
+// Input Field Variables
+$inputTextColor: $primary;
+$inputPlaceholderColor: lighten($primary, 10%);
+$inputBackgroundColor: white;
+$inputBorderColor: lightgray;
+$inputFocusBorderColor: lighten(deepskyblue, 10%);
+$inputFocusGlowColor: lighten(deepskyblue, 20%);
+$inputDisabledBackgroundColor: lighten(gainsboro, 11%);
+$inputInvalidTextColor: firebrick;
+$inputInvalidBorderColor: lighten(crimson, 10%);
+$inputInvalidFocusBorderColor: crimson;
+$inputInvalidFocusGlowColor: lighten(crimson, 20%);
+$inputBorderRadius: 4px;
+
+// Select Field Variables
+$selectTextColor: $inputTextColor;
+$selectBackgroundColor: $inputBackgroundColor;
+$selectBorderColor: $inputBorderColor;
+$selectFocusGlowColor: $inputFocusGlowColor;
+$selectDisabledBackgroundColor: $inputDisabledBackgroundColor;
+$selectInvalidTextColor: $inputInvalidTextColor;
+$selectInvalidBorderColor: $inputInvalidBorderColor;
+$selectInvalidFocusBorderColor: $inputInvalidFocusBorderColor;
+$selectInvalidFocusGlowColor: $inputInvalidFocusGlowColor;
+$selectBorderRadius: 4px;
+
+// Textarea Field Variables
+$textareaTextColor: $inputTextColor;
+$textareaPlaceholderColor: $inputPlaceholderColor;
+$textareaBackgroundColor: $inputBackgroundColor;
+$textareaBorderColor: $inputBorderColor;
+$textareaFocusBorderColor: $inputFocusBorderColor;
+$textareaFocusGlowColor: $inputFocusGlowColor;
+$textareaDisabledBackgroundColor: $inputDisabledBackgroundColor;
+$textareaInvalidTextColor: $inputInvalidTextColor;
+$textareaInvalidBorderColor: $inputInvalidBorderColor;
+$textareaInvalidFocusBorderColor: $inputInvalidFocusBorderColor;
+$textareaInvalidFocusGlowColor: $inputInvalidFocusGlowColor;
+$textareaBorderRadius: 4px;
+
+// Button Variables
+$buttonTextColor: white;
+$buttonBackgroundColor: $accent;
+$buttonBorderColor: darken($accent, 5%);
+$buttonHoverBackgroundColor: lighten($buttonBackgroundColor, 5%);
+$buttonHoverBorderColor: lighten($buttonBorderColor, 5%);
+$buttonActiveBackgroundColor: darken($buttonBackgroundColor, 5%);
+$buttonActiveBorderColor: darken($buttonBorderColor, 5%);
+$buttonBorderRadius: 4px;
