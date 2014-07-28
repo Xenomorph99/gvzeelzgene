@@ -7,7 +7,7 @@
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.0
+ * @version 1.1
  */
 
 class Mailing_List {
@@ -119,6 +119,34 @@ class Mailing_List {
 			if( $col['email'] == $email ) {
 				Database::delete_row( Mailing_List::$table, 'id', $col['id'] );
 			}
+		}
+
+	}
+
+	public function get_mailing_list( $status = 'all' ) {
+
+		$data = array();
+		$list = Database::get_results( Mailing_List::$table, array( 'id', 'email', 'status', 'timestamp' ) );
+		$count = count( $list );
+
+		// Filter and return retrieved data
+		switch( $status ) {
+
+			case 'all' :
+				return $data = $list;
+				break;
+
+			default :
+				$data = $list;
+				foreach( $list as $row ) {
+					if( $row['status'] !== $status ) {
+						unset( $data[$count] );
+					}
+					$count--;
+				}
+				return $data;
+				break;
+
 		}
 
 	}
