@@ -1,8 +1,8 @@
 <?php
 /**
- * Mailing list API
+ * Popular API
  *
- * Required parameters: action, email
+ * Required parameters: action, post_id
  *
  * @package WordPress
  * @subpackage Gvzeelzgene
@@ -21,10 +21,10 @@ $resp = array(
 );
 
 // Verify action
-$query = $_POST;
-if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['email'] ) ) :
+$query = $_GET;
+if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['post_id'] ) ) :
 
-	$resp = Mailing_List_API::run_action( $query['action'], $query['email'] );
+	$resp = Popular::run_api_action( $query['action'], $query['post_id'] );
 
 endif;
 

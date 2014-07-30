@@ -56,11 +56,20 @@ class Theme {
 		// Register custom meta boxes
 		static::register_custom_meta_boxes();
 
+		// Register popular tracking (views & likes)
+		static::register_popular_tracking();
+
 	}
 
 	protected static function register_custom_post_types() {
 
-		// new Post_Type();
+		$products = array(
+			'post_type' => 'products',
+			'name_singular' => 'Product',
+			'name_plural' => 'Products'
+		);
+
+		new Post_Type( $products );
 
 	}
 
@@ -73,6 +82,16 @@ class Theme {
 	protected static function register_custom_meta_boxes() {
 
 		// new Meta_Box();
+
+	}
+
+	protected static function register_popular_tracking() {
+
+		$arr = array(
+			'inflate' => true
+		);
+
+		$Popular = new Popular( $arr );
 
 	}
 
@@ -130,7 +149,7 @@ class Theme {
 
 	public static function excerpt( $more ) {
 
-		return '...'
+		return '...';
 
 	}
 

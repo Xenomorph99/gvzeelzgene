@@ -7,7 +7,7 @@
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.2.1
+ * @version 1.2.2
  */
 
 class Meta_Box {
@@ -25,6 +25,7 @@ class Meta_Box {
 		'recursive' => false,			// Defines whether a meta box can have multiple database rows for a single table
 		'admin_menu' => false,			// Include an admin menu page to control default values, etc. (true, false)
 		'admin_view' => NULL,			// Path to the admin menu view (if set to null a default view will be created)
+		'array' => array(),				// Array of additional data to be passed to a view
 		'table' => array()				// Database table array
 	);
 
@@ -104,7 +105,7 @@ class Meta_Box {
 		$data = Database::get_results( $this->settings['table'], null, array( 'post_id' => (string) get_the_ID() ) );
 		$this->data = ( !empty( $data ) ) ? $data : array( $this->defaults );
 
-		if( !empty( $view ) ) {
+		if( !empty( $this->settings['view'] ) ) {
 			extract( $this->settings );
 			$prefix = $table['prefix'] . '_';
 			include_once $this->settings['view'];

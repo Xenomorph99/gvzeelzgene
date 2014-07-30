@@ -69,7 +69,7 @@ class Mailing_List {
 		$this->update_mailing_list();
 
 		$data = Database::get_results( Mailing_List::$table, array( 'id', 'email', 'status', 'timestamp' ) );
-		require_once VIEWS_PATH . 'admin/mailing-list.php';
+		require_once VIEWS_DIR . 'admin/mailing-list.php';
 
 	}
 
