@@ -14,6 +14,7 @@
  * - Extract into Wordpress plugin format
  * - Create generic HTML email templates
  * - Create ability to add custom HTML email templates
+ * - Add additional layers of security
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
@@ -46,16 +47,7 @@ class Mailing_List {
 
 	protected function setup_mailing_list() {
 
-		// Generate encryption key
-		if( !get_option( 'mailing_list_key' ) ) {
-			$rand = rand(10000000, 999999999);
-			$key = Encryption::encrypt( $rand );
-			$key = str_replace( '/', '_', $key );
-			$key = str_replace( '+', '_', $key );
-			$key = str_replace( '=', '_', $key );
-			add_option( 'mailing_list_key', $key );
-		}
-
+		Encryption::generate_key( 'mailing_list_key' );
 		Database::install_table( static::$table );
 
 	}
@@ -118,21 +110,6 @@ class Mailing_List {
 
 	}
 
-	public function unsubscribe( $email ) {
-
-		if( empty( $email ) )
-			return false;
-
-		$data = Database::get_results( static::$table, array( 'id', 'email' ) );
-
-		foreach( $data as $row => $col ) {
-			if( $col['email'] == $email ) {
-				Database::delete_row( static::$table, 'id', $col['id'] );
-			}
-		}
-
-	}
-
 	public function get_mailing_list( $status = 'all' ) {
 
 		$data = array();
@@ -171,6 +148,10 @@ class Mailing_List {
 				$resp = static::save_email( $email );
 				break;
 
+			case 'unsubscribe' :
+				$resp = static::delete_email( $email );
+				break;
+
 			default :
 				$resp['status'] = 'error';
 				$resp['desc'] = 'invalid-action';
@@ -191,7 +172,7 @@ class Mailing_List {
 		if( preg_match( '/^[A-Za-z0-9._%\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,4}$/', $email ) ) :
 
 			// Save email to mailing list
-			$status = static::process_email( strtolower( $email ) );
+			$status = static::save_to_database( strtolower( $email ) );
 
 			switch( $status ) {
 
@@ -225,7 +206,7 @@ class Mailing_List {
 
 	}
 
-	protected static function process_email( $email ) {
+	protected static function save_to_database( $email ) {
 
 		$data = array(
 			'email' => $email,
@@ -249,6 +230,66 @@ class Mailing_List {
 			//Email::send_mail( "no-reply@" . get_bloginfo( 'url' ) );
 			return $status = 'success';
 		}
+
+	}
+
+	protected static function delete_email( $email ) {
+
+		$resp = array();
+
+		// Scrub out invalid email addresses
+		if( preg_match( '/^[A-Za-z0-9._%\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,4}$/', $email ) ) :
+
+			// Remove email from mailing list
+			$status = static::remove_from_database( strtolower( $email ) );
+
+			switch( $status ) {
+
+				case "success" :
+					$resp['status'] = 'success';
+					$resp['desc'] = 'removed';
+					$resp['message'] = 'The submitted email address has successfully been removed from the mailing list.';
+					break;
+
+				case "not-found" :
+					$resp['status'] = 'error';
+					$resp['desc'] = 'not-found';
+					$resp['message'] = 'The submitted email address was not found on the mailing list.';
+					break;
+
+				case "error" :
+					$resp['status'] = 'error';
+					$resp['desc'] = 'database-connection-error';
+					$resp['message'] = 'An error occured connecting to the database.  Try again later.';
+					break;
+
+			}
+
+		else :
+			$resp['status'] = 'error';
+			$resp['desc'] = 'invalid-format';
+			$resp['message'] = 'The submitted email address does not match the required format.';
+		endif;
+
+		return $resp;
+
+	}
+
+	protected static function remove_from_database( $email ) {
+
+		$data = Database::get_row( static::$table, 'email', $email );
+
+		if( !empty( $data ) ) :
+
+			Database::delete_row( static::$table, 'email', $email );
+			//Email::send_mail( ... );
+			return $status = 'success';
+
+		else :
+
+			return $status = 'not-found';
+
+		endif;
 
 	}
 

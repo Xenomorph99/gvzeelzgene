@@ -10,13 +10,7 @@
 
 class Email {
 
-	public function __construct() {
-
-		// Do nothing
-
-	}
-
-	public function send_mail( $sender, $subject, $recipient, $template, $data = NULL ) {
+	public static function send_mail( $sender, $subject, $recipient, $template, $data = NULL ) {
 
 		$rn = "\r\n";
 		$headers = "From: " . $sender . $rn;

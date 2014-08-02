@@ -30,11 +30,11 @@ class Encryption {
 
 	}
 
-	public static function generate_key( $name ) {
+	public static function generate_key( $name, $min = 10000000, $max = 999999999 ) {
 
 		if( !get_option( $name ) ) {
 
-			$rand = rand(10000000, 999999999);
+			$rand = rand($min, $max);
 			$val = static::encrypt( $rand );
 			$val = str_replace( '/', '_', $val );
 			$val = str_replace( '+', '_', $val );
