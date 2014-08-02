@@ -19,7 +19,6 @@ require_once FORMS_CLASS;
 require_once FUNCTIONS_CLASS;
 require_once LEADS_CLASS;
 require_once MAILING_LIST_CLASS;
-require_once MAILING_LIST_API_CLASS;
 require_once META_BOX_CLASS;
 require_once POPULAR_CLASS;
 require_once POST_TYPE_CLASS;

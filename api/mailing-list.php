@@ -24,7 +24,7 @@ $resp = array(
 $query = $_POST;
 if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['email'] ) ) :
 
-	$resp = Mailing_List_API::run_action( $query['action'], $query['email'] );
+	$resp = Mailing_List::run_api_action( $query['action'], $query['email'] );
 
 endif;
 

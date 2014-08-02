@@ -34,7 +34,6 @@ define( 'FORMS_CLASS', CLASSES_DIR . 'forms.php' );
 define( 'FUNCTIONS_CLASS', CLASSES_DIR . 'functions.php' );
 define( 'LEADS_CLASS', CLASSES_DIR . 'leads.php' );
 define( 'MAILING_LIST_CLASS', CLASSES_DIR . 'mailing-list.php' );
-define( 'MAILING_LIST_API_CLASS', CLASSES_DIR . 'mailing-list-api.php' );
 define( 'META_BOX_CLASS', CLASSES_DIR . 'meta-box.php' );
 define( 'POPULAR_CLASS', CLASSES_DIR . 'popular.php' );
 define( 'POST_TYPE_CLASS', CLASSES_DIR . 'post-type.php' );

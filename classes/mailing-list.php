@@ -113,11 +113,11 @@ class Mailing_List {
 		if( empty( $email ) )
 			return false;
 
-		$data = Database::get_results( Mailing_List::$table, array( 'id', 'email' ) );
+		$data = Database::get_results( static::$table, array( 'id', 'email' ) );
 
 		foreach( $data as $row => $col ) {
 			if( $col['email'] == $email ) {
-				Database::delete_row( Mailing_List::$table, 'id', $col['id'] );
+				Database::delete_row( static::$table, 'id', $col['id'] );
 			}
 		}
 
@@ -126,7 +126,7 @@ class Mailing_List {
 	public function get_mailing_list( $status = 'all' ) {
 
 		$data = array();
-		$list = Database::get_results( Mailing_List::$table, array( 'id', 'email', 'status', 'timestamp' ) );
+		$list = Database::get_results( static::$table, array( 'id', 'email', 'status', 'timestamp' ) );
 		$count = count( $list );
 
 		// Filter and return retrieved data
@@ -147,6 +147,97 @@ class Mailing_List {
 				return $data;
 				break;
 
+		}
+
+	}
+
+	public static function run_api_action( $action, $email ) {
+
+		$resp = array();
+
+		switch( $action ) {
+
+			case 'save' :
+				$resp = static::save_email( $email );
+				break;
+
+			default :
+				$resp['status'] = 'error';
+				$resp['desc'] = 'invalid-action';
+				$resp['message'] = 'Defined API action cannot be performed';
+				break;
+
+		}
+
+		return $resp;
+
+	}
+
+	protected static function save_email( $email ) {
+
+		$resp = array();
+
+		// Scrub out invalid email addresses
+		if( preg_match( '/^[A-Za-z0-9._%\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,4}$/', $email ) ) :
+
+			// Save email to mailing list
+			$status = static::process_email( strtolower( $email ) );
+
+			switch( $status ) {
+
+				case "success" :
+					$resp['status'] = 'success';
+					$resp['desc'] = 'submitted';
+					$resp['message'] = 'The submitted email address has successfully been added to the mailing list.';
+					break;
+
+				case "duplicate" :
+					$resp['status'] = 'error';
+					$resp['desc'] = 'duplicate';
+					$resp['message'] = 'The submitted email address is already on the mailing list.';
+					break;
+
+				case "error" :
+					$resp['status'] = 'error';
+					$resp['desc'] = 'database-connection-error';
+					$resp['message'] = 'An error occured connecting to the database.  Try again later.';
+					break;
+
+			}
+
+		else :
+			$resp['status'] = 'error';
+			$resp['desc'] = 'invalid-format';
+			$resp['message'] = 'The submitted email address does not match the required format.';
+		endif;
+
+		return $resp;
+
+	}
+
+	protected static function process_email( $email ) {
+
+		$data = array(
+			'email' => $email,
+			'timestamp' => date( 'Y-m-d H:i:s', time() )
+		);
+		$match = false;
+
+		// Check for duplicates
+		$list = Database::get_results( static::$table, array( 'email' ) );
+		foreach( $list as $item ) {
+			if( $item['email'] === $data['email'] ) {
+				$match = true;
+			}
+		}
+
+		// Take appropriate action
+		if( $match ) {
+			return $status = 'duplicate';
+		} else {
+			Database::insert_row( static::$table, $data );
+			//Email::send_mail( "no-reply@" . get_bloginfo( 'url' ) );
+			return $status = 'success';
 		}
 
 	}
