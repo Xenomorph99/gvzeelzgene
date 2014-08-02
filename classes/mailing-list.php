@@ -5,12 +5,24 @@
  *
  * Required models: Database, Encryption
  *
+ * Future:
+ * - Add unsubscribe functionality
+ * - Add MailChimp & other 3rd party integrations
+ * - Add stats (number of subscribers, unsubscribers, etc)
+ * - Add ability to send out email to members of the subscription list
+ * - Shortcode and function capability to pull a subscribe form into any view
+ * - Extract into Wordpress plugin format
+ * - Create generic HTML email templates
+ * - Create ability to add custom HTML email templates
+ *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.1
+ * @version 1.2
  */
 
 class Mailing_List {
+
+	public $settings = array();
 
 	public static $table = array(
 		'name' => 'mailing_list',
@@ -23,12 +35,11 @@ class Mailing_List {
 		)
 	);
 
-	public function __construct() {
+	public function __construct( $args ) {
 
-		// Run setup
+		$this->settings = Functions::merge_array( $args, $this->settings );
+
 		$this->setup_mailing_list();
-
-		// Run Wordpress hooks
 		$this->wp_hooks();
 
 	}
@@ -45,14 +56,13 @@ class Mailing_List {
 			add_option( 'mailing_list_key', $key );
 		}
 
-		// Install mailing list table
-		Database::install_table( Mailing_List::$table );
+		Database::install_table( static::$table );
 
 	}
 
 	protected function wp_hooks() {
 
-		// Run mailing list setup
+		// Setup the mailing list admin menu
 		add_action( 'admin_menu', array( &$this, 'register_admin_menu' ) );
 
 	}
@@ -68,8 +78,8 @@ class Mailing_List {
 		// Update the status of checked rows in the mailing list view
 		$this->update_mailing_list();
 
-		$data = Database::get_results( Mailing_List::$table, array( 'id', 'email', 'status', 'timestamp' ) );
-		require_once VIEWS_DIR . 'admin/mailing-list.php';
+		$data = Database::get_results( static::$table, array( 'id', 'email', 'status', 'timestamp' ) );
+		require_once VIEWS_DIR . 'admin-menu/mailing-list.php';
 
 	}
 
@@ -91,15 +101,15 @@ class Mailing_List {
 				switch( $action ) {
 
 					case 'active' :
-						Database::update_row( Mailing_List::$table, 'id', $row_id, array( 'status' => 'active' ) );
+						Database::update_row( static::$table, 'id', $row_id, array( 'status' => 'active' ) );
 						break;
 
 					case 'trash' :
-						Database::update_row( Mailing_List::$table, 'id', $row_id, array( 'status' => 'trash' ) );
+						Database::update_row( static::$table, 'id', $row_id, array( 'status' => 'trash' ) );
 						break;
 
 					case 'delete' :
-						Database::delete_row( Mailing_List::$table, 'id', $row_id );
+						Database::delete_row( static::$table, 'id', $row_id );
 						break;
 
 				}

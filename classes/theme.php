@@ -56,6 +56,9 @@ class Theme {
 		// Register custom meta boxes
 		static::register_custom_meta_boxes();
 
+		// Register mailing list
+		static::register_mailing_list();
+
 		// Register popular tracking (views & likes)
 		static::register_popular_tracking();
 
@@ -85,13 +88,21 @@ class Theme {
 
 	}
 
+	protected static function register_mailing_list() {
+
+		$args = array();
+
+		$Mailing_List = new Mailing_List( $args );
+
+	}
+
 	protected static function register_popular_tracking() {
 
-		$arr = array(
+		$args = array(
 			'inflate' => true
 		);
 
-		$Popular = new Popular( $arr );
+		$Popular = new Popular( $args );
 
 	}
 
