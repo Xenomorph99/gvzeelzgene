@@ -8,14 +8,19 @@
  */
 
 $inflated = $array['inflate'];
-extract( $data[0] );
 
-?>
+if( !empty( $data[0] ) ) : extract( $data[0] ); ?>
 
-<p>Views: <strong style="font-size: 1.1em;"><?php echo $views; ?></strong></p>
+	<p>Views: <strong style="font-size: 1.2em;"><?php echo $views; ?></strong></p>
 
-<?php if( $inflated ) : ?>
-	<p>Likes: <strong style="font-size: 1.1em;"><?php echo $likes; ?></strong> (+<?php echo $infl; ?> = <?php echo ( $likes + $infl ); ?>)</p>
+	<?php if( $inflated ) : ?>
+		<p>Likes: <strong style="font-size: 1.2em;"><?php echo $likes; ?></strong> <small>(+<?php echo $infl; ?> = <?php echo ( $likes + $infl ); ?>)</small></p>
+	<?php else : ?>
+		<p>Likes: <strong style="font-size: 1.2em;"><?php echo $likes; ?></strong></p>
+	<?php endif; ?>
+
 <?php else : ?>
-	<p>Likes: <strong style="font-size: 1.1em;"><?php echo $likes; ?></strong></p>
+
+	<p>No Data</p>
+
 <?php endif;

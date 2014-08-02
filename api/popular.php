@@ -21,7 +21,7 @@ $resp = array(
 );
 
 // Verify action
-$query = $_GET;
+$query = $_POST;
 if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['post_id'] ) ) :
 
 	$resp = Popular::run_api_action( $query['action'], $query['post_id'] );

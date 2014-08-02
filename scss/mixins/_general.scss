@@ -160,12 +160,20 @@
 }
 
 // Used for moving the position of an element
-@mixin translate($params) {
-	-ms-transform: translate($params);
-	-o-transform: translate($params);
-	-moz-transform: translate($params);
-	-webkit-transform: translate($params);
-	transform: translate($params);
+@mixin translate($param1, $param2:null) {
+	@if $param2 == null {
+		-ms-transform: translate($param1);
+		-o-transform: translate($param1);
+		-moz-transform: translate($param1);
+		-webkit-transform: translate($param1);
+		transform: translate($param1);
+	} @else {
+		-ms-transform: translate($param1, $param2);
+		-o-transform: translate($param1, $param2);
+		-moz-transform: translate($param1, $param2);
+		-webkit-transform: translate($param1, $param2);
+		transform: translate($param1, $param2);
+	}
 }
 
 // Used for scaling the size of an element

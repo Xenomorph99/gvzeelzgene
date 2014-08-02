@@ -5,6 +5,9 @@
  *
  * Required models: Database, Encryption, Functions, Admin_Menu
  *
+ * Future:
+ * - Create ability to save/retrieve data from wordpress options table instead of creating a new table
+ *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
  * @version 1.2.2

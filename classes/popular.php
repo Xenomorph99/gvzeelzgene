@@ -9,6 +9,7 @@
  * - Wordpress admin page to display the top ranking pages - both views and likes
  * - A session cookie to prevent multiple likes/views
  * - Integrate nonce
+ * - get_popular() for only a specific post_type
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
@@ -71,7 +72,10 @@ class Popular {
 		add_action( 'save_post', array( &$this, 'get_data' ) );
 
 		// Track page views
-		add_action( 'shutdown', array( &$this, 'track_page_view' ) );		
+		add_action( 'shutdown', array( &$this, 'track_page_view' ) );
+
+		// Delete popular data associated with deleted posts
+		add_action( 'before_delete_post', array( &$this, 'delete_popular' ) );
 
 	}
 
@@ -91,31 +95,6 @@ class Popular {
 		endif;
 
 		return $data;
-
-	}
-
-	protected function set_tracking_variable() {
-
-		global $post;
-		$post_types = $this->settings['post_type'];
-
-		if( !WP_DEBUG && !is_admin() && !empty( $post_types ) ) {
-			foreach( $post_types as $post_type ) {
-				$this->track = ( $post_type == $post->post_type && ( is_single() || is_page() ) ) ? true : $this->track;
-			}
-		}
-
-	}
-
-	public function track_page_view() {
-
-		$this->set_tracking_variable();
-
-		if( $this->track ) {
-			$data = $this->get_data( false );
-			$data['views'] = (int)$data['views'] + 1;
-			Database::save_data( static::$table, $data );
-		}
 
 	}
 
@@ -150,6 +129,38 @@ class Popular {
 		}
 
 		return $num;
+
+	}
+
+	protected function set_tracking_variable() {
+
+		global $post;
+		$post_types = $this->settings['post_type'];
+
+		if( !WP_DEBUG && !is_admin() && !empty( $post_types ) ) {
+			foreach( $post_types as $post_type ) {
+				$this->track = ( $post_type == $post->post_type && ( is_single() || is_page() ) ) ? true : $this->track;
+			}
+		}
+
+	}
+
+	public function track_page_view() {
+
+		$this->set_tracking_variable();
+
+		if( $this->track ) {
+			$data = $this->get_data( false );
+			$data['views'] = (int)$data['views'] + 1;
+			Database::save_data( static::$table, $data );
+		}
+
+	}
+
+	public function delete_popular( $post_id ) {
+
+		global $post;
+		$status = Database::delete_row( static::$table, 'post_id', $post->ID );
 
 	}
 

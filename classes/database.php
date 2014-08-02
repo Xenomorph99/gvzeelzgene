@@ -7,7 +7,7 @@
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.0
+ * @version 1.0.1
  */
 
 class Database {
@@ -251,10 +251,10 @@ class Database {
 
 	}
 
-	public static function delete_row( $table_name, $unique_key, $unique_value ) {
+	public static function delete_row( $arr, $unique_key, $unique_value ) {
 
 		global $wpdb;
-		$table = $wpdb->prefix . $table_name;
+		$table = $wpdb->prefix . $arr['name'];
 		$has_row = $wpdb->get_var( "SELECT * FROM $table WHERE $unique_key = '$unique_value'" );
 
 		if( $has_row ) {
