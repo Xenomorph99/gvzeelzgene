@@ -52,6 +52,7 @@ class Mailing_List {
 
 	public function __construct( $args ) {
 
+		$this->settings['sender'] = ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' );
 		$this->settings = Functions::merge_array( $args, $this->settings );
 
 		$this->setup_mailing_list();
@@ -253,10 +254,10 @@ class Mailing_List {
 		else :
 
 			Database::insert_row( static::$table, $data );
-			
+
 			$subscribe_email = array(
-				'sender' => ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
-				'reply_to' => ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
+				'sender' => $this->settings['sender'],
+				'reply_to' => $this->settings['sender'],
 				'recipient' => $email,
 				'subject' => 'Thanks for Subscribing!',
 				'template' => VIEWS_DIR . 'email/subscribe.php'
@@ -320,8 +321,8 @@ class Mailing_List {
 			Database::delete_row( static::$table, 'email', $email, true );
 
 			$unsubscribe_email = array(
-				'sender' => get_option( 'mailing_list_settings_sender', get_bloginfo( 'admin_email' ) ),
-				'reply_to' => get_option( 'mailing_list_settings_sender', get_bloginfo( 'admin_email' ) ),
+				'sender' => $this->settings['sender'],
+				'reply_to' => $this->settings['sender'],
 				'recipient' => $email,
 				'subject' => 'Unsubscribe Confirmation',
 				'template' => VIEWS_DIR . 'email/unsubscribe.php'
