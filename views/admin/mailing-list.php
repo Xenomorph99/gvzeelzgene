@@ -1,16 +1,12 @@
 <?php
-/**
- * @package WordPress
- * @subpackage Advertorial Blog
- * @since 1.0
- */
 
+$data = Database::get_results( $table, array( 'id', 'email', 'status', 'timestamp' ) );
 $default_view = 'active';
 $current_view = ( empty( $_GET['view'] ) ) ? $default_view : $_GET['view'];
 
 $views = array(
 	'active' => array(
-		'url' => admin_url() . 'admin.php?page=mailing_list',
+		'url' => admin_url() . 'admin.php?page=' . $id,
 		'item_count' => 0,
 		'empty_message' => 'No Active Emails to Display',
 		'actions' => array(
@@ -18,7 +14,7 @@ $views = array(
 		)
 	),
 	'trash' => array(
-		'url' => admin_url() . 'admin.php?page=mailing_list&view=trash',
+		'url' => admin_url() . 'admin.php?page=' . $id . '&view=trash',
 		'item_count' => 0,
 		'empty_message' => 'No Emails in the Trash',
 		'actions' => array(

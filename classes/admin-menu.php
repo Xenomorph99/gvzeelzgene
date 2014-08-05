@@ -6,25 +6,29 @@
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.1.1
+ * @version 1.2
  */
 
 class Admin_Menu {
 
 	public $settings = array(
+		'type' => 'options_page',			// Defines the type of page to create ('options_page' = child of settings, 'menu_page' = root level menu item, 'submenu_page' = child of root level menu item)
 		'title' => '',						// Admin menu title (will be converted and used as html ID attr)
-		'display_name' => '',				// Admin menu display name in the sidebar nav
+		'menu_title' => '',					// Display name that appears in the sidebar
+		'icon' => '',						// Icon displayed in the sidebar (ONLY if 'type' = 'menu_page')
+		'menu_position' => 100,				// Location in the sidebar (ONLY if 'type' = 'menu_page') (5 - below Posts, 10 - below Media, 15 - below Links, 20 - below Pages, 25 - below comments, 60 - below first separator, 65 - below Plugins, 70 - below Users, 75 - below Tools, 80 - below Settings, 100 - below second separator)
+		'parent' => 'options-general.php',	// ID of the parent underwhich to display the submenu (ONLY if 'type' = 'submenu_page')
 		'capability' => 'manage_options',	// Required capability for the admin menu to be displayed to the user
 		'view' => NULL,						// Path to the admin menu view (if set to null a default view will be created)
 		'defaults' => array(),				// Array of default key/value pairs
 		'table' => NULL						// Table array (defined if Admin_Menu is created by a Meta_Box class)
 	);
 
-	public function __construct( $arr ) {
+	public function __construct( $args ) {
 
-		$this->settings = Functions::merge_array( $arr, $this->settings );
+		$this->settings = Functions::merge_array( $args, $this->settings );
 		$this->settings['id'] = Functions::str_smash( $this->settings['title'] );
-		$this->settings['display_name'] = ( empty( $this->settings['display_name'] ) ) ? $this->settings['title'] : $this->settings['display_name'];
+		$this->settings['menu_title'] = ( empty( $this->settings['menu_title'] ) ) ? $this->settings['title'] : $this->settings['menu_title'];
 		
 		$this->save_default_values();
 		$this->wp_hooks();
@@ -33,15 +37,20 @@ class Admin_Menu {
 
 	protected function save_default_values() {
 
-		extract( $this->settings );
+		$defaults = $this->settings['defaults'];
+		$id = $this->settings['id'];
 
-		foreach( $defaults as $name => $value ) {
-			if( $name !== 'id' && $name !== 'post_id' ) {
-				if( !get_option( $id . '_' . $name ) ) {
-					add_option( $id . '_' . $name, $value );
+		if( !empty( $defaults ) ) :
+
+			foreach( $defaults as $name => $value ) {
+				if( $name !== 'id' && $name !== 'post_id' ) {
+					if( !get_option( $id . '_' . $name ) ) {
+						add_option( $id . '_' . $name, $value[0] );
+					}
 				}
 			}
-		}
+
+		endif;
 
 	}
 
@@ -59,15 +68,30 @@ class Admin_Menu {
 
 		extract( $this->settings );
 
-		add_options_page( $title, $display_name, $capability, $id, array( &$this, 'setup_admin_menu_view' ) );
+		switch( $type ) {
+
+			case "options_page" :
+				add_options_page( $title, $menu_title, $capability, $id, array( &$this, 'setup_admin_menu_view' ) );
+				break;
+
+			case "menu_page" :
+				add_menu_page( $title, $menu_title, $capability, $id, array( &$this, 'setup_admin_menu_view' ), $icon, $menu_position );
+				break;
+
+			case "submenu_page" :
+				add_submenu_page( $parent, $title, $menu_title, $capability, $id, array( &$this, 'setup_admin_menu_view' ) );
+				break;
+
+		}
 
 	}
 
 	public function setup_admin_menu_view() {
 
+		extract( $this->settings );
+
 		if( !empty( $view ) ) {
-			extract( $this->settings );
-			include_once $view;	
+			include_once $view;
 		} else {
 			$this->default_admin_menu_view();
 		}
@@ -78,10 +102,11 @@ class Admin_Menu {
 
 		extract( $this->settings );
 		$prefix = $table['prefix'] . '_';
+		$action = ( $type === 'menu_page' || $type === 'submenu_page' ) ? "admin.php?page=$id" : "options-general.php?page=$id";
 
 		echo "<div id='$id' class='wrap'>";
 		echo "<h2>$title</h2>";
-		echo "<form method='post' action='options-general.php?page=$id'>";
+		echo "<form method='post' action='$action'>";
 
 		echo $this->form_fields();
 		echo $this->default_buttons();
@@ -94,32 +119,35 @@ class Admin_Menu {
 	public function form_fields() {
 
 		extract( $this->settings );
-		if( !empty( $table ) ) {
 
-			$s = "<table class='form-table meta-box-form-section'>";
-			$s .= "<tbody>";
+		$s = "<table class='form-table meta-box-form-section'>";
+		$s .= "<tbody>";
+
+		if( !empty( $table ) ) :
+
 			foreach( $defaults as $key => $value ) {
 				$field_type = $table['structure'][$key][3];
 				$label = ( !empty( $table['structure'][$key][5] ) ) ? $table['structure'][$key][5] : NULL;
 				$options = ( !empty( $table['structure'][$key][4] ) ) ? $table['structure'][$key][4] : NULL;
 				$s .= $this->field( $field_type, $key, $label, NULL, NULL, $options );
 			}
-			$s .= "</tbody>";
-			$s .= "</table>";
-			return $s;
 
-		} else {
+		else :
 
-			$s = "<table class='form-table meta-box-form-section'>";
-			$s .= "<tbody>";
+			foreach( $defaults as $key => $value ) {
+				$field_type = $value[1];
+				$label = ( !empty( $value[2] ) ) ? $value[2] : NULL;
+				$options = ( !empty( $value[3] ) ) ? $value[3] : NULL;
+				$placeholder = ( !empty( $value[4] ) ) ? $value[4] : NULL;
+				$s .= $this->field( $field_type, $key, $label, NULL, NULL, $options, $placeholder );
+			}
 
+		endif;
 
+		$s .= "</tbody>";
+		$s .= "</table>";
 
-			$s .= "</tbody>";
-			$s .= "</table>";
-			return $s;
-
-		}
+		return $s;
 
 	}
 
@@ -132,20 +160,21 @@ class Admin_Menu {
 
 	}
 
-	public function field( $type, $key, $label = NULL, $id = NULL, $title = NULL, $options = array() ) {
+	public function field( $type, $key, $label = NULL, $id = NULL, $title = NULL, $options = array(), $placeholder = NULL ) {
 
 		$field = '';
-		$id = ( isset( $id ) ) ? $id : $this->settings['id'] . '-' . $key;
+		$id = ( isset( $id ) ) ? $id : $this->settings['id'] . '_' . $key;
 		$label = ( isset( $label ) ) ? $label : ucwords( $key );
 		$name = $this->settings['id'] . '_' . $key;
 		$value = stripslashes( get_option( $this->settings['id'] . '_' . $key, $this->settings['defaults'][$key] ) );
+		$placeholder = ( isset( $placeholder ) ) ? $placeholder : '';
 
 		switch( $type ) {
 			case 'text' :
 
 				$field .= "<tr>";
 				$field .= "<th scope='row'><label for='$id'>$label</label></th>";
-				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"></td>';
+				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" placeholder="' . $placeholder . '"></td>';
 				$field .= "</tr>";
 
 				break;
@@ -153,7 +182,7 @@ class Admin_Menu {
 
 				$field .= "<tr>";
 				$field .= "<th scope='row'><label for='$id'>$label</label></th>";
-				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"></td>';
+				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" placeholder="' . $placeholder . '"></td>';
 				$field .= "</tr>";
 
 				break;
@@ -169,7 +198,7 @@ class Admin_Menu {
 
 				$field .= "<tr>";
 				$field .= "<th scope='row'><label for='$id'>$label</label></th>";
-				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"></td>';
+				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" placeholder="' . $placeholder . '"></td>';
 				$field .= "</tr>";
 
 				break;
@@ -177,7 +206,7 @@ class Admin_Menu {
 
 				$field .= "<tr>";
 				$field .= "<th scope='row'><label for='$id'>$label</label></th>";
-				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"></td>';
+				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" placeholder="' . $placeholder . '"></td>';
 				$field .= "</tr>";
 
 				break;
@@ -185,7 +214,7 @@ class Admin_Menu {
 
 				$field .= "<tr>";
 				$field .= "<th scope='row'><label for='$id'>$label</label></th>";
-				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"></td>';
+				$field .= '<td><input type="' . $type . '" id="' . $id . '" name="' . $name . '" value="' . $value . '" placeholder="' . $placeholder . '"></td>';
 				$field .= "</tr>";
 
 				break;
@@ -249,13 +278,18 @@ class Admin_Menu {
 
 	public function save_admin_menu() {
 
-		extract( $this->settings );
+		$defaults = $this->settings['defaults'];
+		$id = $this->settings['id'];
 
-		foreach( $defaults as $name => $value ) {
-			if( isset( $_POST[$id.'_'.$name] ) ) {
-				update_option( $id . '_' . $name, $_POST[$id.'_'.$name] );
+		if( !empty( $defaults ) ) :
+
+			foreach( $defaults as $name => $value ) {
+				if( isset( $_POST[$id.'_'.$name] ) ) {
+					update_option( $id . '_' . $name, $_POST[$id.'_'.$name] );
+				}
 			}
-		}
+
+		endif;
 
 	}
 

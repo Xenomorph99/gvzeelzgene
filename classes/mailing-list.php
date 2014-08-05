@@ -6,13 +6,15 @@
  * Required models: Database, Encryption
  *
  * Future:
- * - Add unsubscribe functionality
+ * - Add form support that uses JS (require jQuery?) (and if JS is not enabled?)
+ * - Add send email functionality on subscribe and unsubscribe
+ * - Setup cron job to manage monthly/weekly newsletter distribution of latest posts
+ * - Add subscribe, unsubscribe, and message default HTML email templates
  * - Add MailChimp & other 3rd party integrations
  * - Add stats (number of subscribers, unsubscribers, etc)
  * - Add ability to send out email to members of the subscription list
  * - Shortcode and function capability to pull a subscribe form into any view
  * - Extract into Wordpress plugin format
- * - Create generic HTML email templates
  * - Create ability to add custom HTML email templates
  * - Add additional layers of security
  *
@@ -23,7 +25,10 @@
 
 class Mailing_List {
 
-	public $settings = array();
+	public $settings = array(
+		// key => array( default_value, field_type, label, options )
+		'sender' => array( '', 'text', 'Send Mail From:', NULL, 'no-reply@example.com' )
+	);
 
 	public static $table = array(
 		'name' => 'mailing_list',
@@ -41,6 +46,7 @@ class Mailing_List {
 		$this->settings = Functions::merge_array( $args, $this->settings );
 
 		$this->setup_mailing_list();
+		$this->setup_admin_menus();
 		$this->wp_hooks();
 
 	}
@@ -52,26 +58,34 @@ class Mailing_List {
 
 	}
 
+	protected function setup_admin_menus() {
+
+		$mailing_list = array(
+			'type' => 'menu_page',
+			'title' => 'Mailing List',
+			'menu_title' => 'Mailing List',
+			'icon' => 'dashicons-email-alt',
+			'view' => VIEWS_DIR . 'admin/mailing-list.php',
+			'table' => static::$table
+		);
+
+		$mailing_list_settings = array(
+			'type' => 'submenu_page',
+			'title' => 'Mailing List Settings',
+			'menu_title' => 'Settings',
+			'parent' => 'mailing_list',
+			'defaults' => $this->settings
+		);
+
+		new Admin_Menu( $mailing_list );
+		new Admin_Menu( $mailing_list_settings );
+
+	}
+
 	protected function wp_hooks() {
 
-		// Setup the mailing list admin menu
-		add_action( 'admin_menu', array( &$this, 'register_admin_menu' ) );
-
-	}
-
-	public function register_admin_menu() {
-
-		add_menu_page( 'Mailing List', 'Mailing List', 'manage_options', 'mailing_list', array( &$this, 'mailing_list_admin_menu' ), '', 100 );
-
-	}
-
-	public function mailing_list_admin_menu() {
-
-		// Update the status of checked rows in the mailing list view
-		$this->update_mailing_list();
-
-		$data = Database::get_results( static::$table, array( 'id', 'email', 'status', 'timestamp' ) );
-		require_once VIEWS_DIR . 'admin-menu/mailing-list.php';
+		// Update the mailing list
+		add_action( 'admin_init', array( &$this, 'update_mailing_list' ) );
 
 	}
 
@@ -223,13 +237,26 @@ class Mailing_List {
 		}
 
 		// Take appropriate action
-		if( $match ) {
+		if( $match ) :
+
 			return $status = 'duplicate';
-		} else {
+
+		else :
+
 			Database::insert_row( static::$table, $data );
-			//Email::send_mail( "no-reply@" . get_bloginfo( 'url' ) );
+			
+			$subscribe_email = array(
+				'sender' => get_option( 'mailing_list_settings_sender' ),
+				'reply_to' => get_option( 'mailing_list_settings_sender' ),
+				'recipient' => $email,
+				'subject' => 'Thanks for Subscribing!',
+				'template' => VIEWS_DIR . 'email/subscribe.php'
+			);
+
+			//new Email( $subscribe_email );
 			return $status = 'success';
-		}
+
+		endif;
 
 	}
 
@@ -254,7 +281,7 @@ class Mailing_List {
 				case "not-found" :
 					$resp['status'] = 'error';
 					$resp['desc'] = 'not-found';
-					$resp['message'] = 'The submitted email address was not found on the mailing list.';
+					$resp['message'] = 'The submitted email address is not on the mailing list.';
 					break;
 
 				case "error" :
@@ -277,12 +304,21 @@ class Mailing_List {
 
 	protected static function remove_from_database( $email ) {
 
-		$data = Database::get_row( static::$table, 'email', $email );
+		$data = Database::get_row( static::$table, 'email', $email, true );
 
-		if( !empty( $data ) ) :
+		if( !empty( $data['email'] ) ) :
 
-			Database::delete_row( static::$table, 'email', $email );
-			//Email::send_mail( ... );
+			Database::delete_row( static::$table, 'email', $email, true );
+
+			$unsubscribe_email = array(
+				'sender' => get_option( 'mailing_list_settings_sender' ),
+				'reply_to' => get_option( 'mailing_list_settings_sender' ),
+				'recipient' => $email,
+				'subject' => 'Unsubscribe Confirmation',
+				'template' => VIEWS_DIR . 'email/unsubscribe.php'
+			);
+			
+			//new Email( $unsubscribe_email );
 			return $status = 'success';
 
 		else :
@@ -290,6 +326,19 @@ class Mailing_List {
 			return $status = 'not-found';
 
 		endif;
+
+	}
+
+	public static function get_form( $template = '' ) {
+
+		include $template = ( !empty( $template ) ) ? $template : VIEWS_DIR . 'mailing-list-form.php';
+		return $s;
+
+	}
+
+	public static function form( $template = '' ) {
+
+		echo static::get_form( $template );
 
 	}
 

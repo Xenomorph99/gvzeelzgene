@@ -7,7 +7,7 @@
  *
  * @author Colton James Wiscombe <colton@hazardmediagroup.com>
  * @copyright 2014 Hazard Media Group LLC
- * @version 1.0.1
+ * @version 1.1
  */
 
 class Database {
@@ -164,13 +164,14 @@ class Database {
 
 	}
 
-	public static function get_row( $arr, $unique_key, $unique_value ) {
+	public static function get_row( $arr, $unique_key, $unique_value, $encrypted = false ) {
 
 		if( !empty( $arr['name'] ) && !empty( $arr['structure'] ) ) {
 
 			global $wpdb;
 			$table = $wpdb->prefix . $arr['name'];
 			$data = array();
+			$unique_value = ( $encrypted ) ? Encryption::encrypt( $unique_value ) : $unique_value;
 			$db = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table WHERE $unique_key = '$unique_value'", array() ), ARRAY_A );
 
 			if( !empty( $db ) ) {
@@ -229,12 +230,13 @@ class Database {
 
 	}
 
-	public static function update_row( $arr, $unique_key, $unique_value, $data ) {
+	public static function update_row( $arr, $unique_key, $unique_value, $data, $encrypted = false ) {
 
 		if( !empty( $arr['name'] ) && !empty( $arr['structure'] ) && isset( $data ) ) {
 
 			global $wpdb;
 			$table = $wpdb->prefix . $arr['name'];
+			$unique_value = ( $encrypted ) ? Database::encrypt( $unique_value ) : $unique_value;
 			$row = array();
 
 			foreach( $data as $col => $col_value ) {
@@ -251,10 +253,11 @@ class Database {
 
 	}
 
-	public static function delete_row( $arr, $unique_key, $unique_value ) {
+	public static function delete_row( $arr, $unique_key, $unique_value, $encrypted = false ) {
 
 		global $wpdb;
 		$table = $wpdb->prefix . $arr['name'];
+		$unique_value = ( $encrypted ) ? Encryption::encrypt( $unique_value ) : $unique_value;
 		$has_row = $wpdb->get_var( "SELECT * FROM $table WHERE $unique_key = '$unique_value'" );
 
 		if( $has_row ) {

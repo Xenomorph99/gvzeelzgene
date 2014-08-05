@@ -29,16 +29,16 @@ class Functions {
 	}
 
 	/** 
-	 * Convert strings like "Hello World" to "hello-world".
+	 * Convert strings like "Hello World" to "hello_world".
 	 *
 	 * @since 1.0
 	 */
-	public static function str_smash( $string ) {
+	public static function str_smash( $string, $symbol = '_' ) {
 
 		$s = strtolower( $string );
 		$s = preg_replace("/[^a-z0-9_\s-]/", "", $s);
 		$s = preg_replace("/[\s-]+/", " ", $s);
-		$s = preg_replace("/[\s_]/", "-", $s);
+		$s = preg_replace("/[\s_]/", $symbol, $s);
 
 		return $s;
 
