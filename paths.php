@@ -15,7 +15,6 @@ define( 'API_DIR', THEME_DIR . 'api/' );
 define( 'CLASSES_DIR', THEME_DIR . 'classes/' );
 define( 'CSS_DIR', THEME_DIR . 'css/' );
 define( 'CSV_DIR', THEME_DIR . 'csv/' );
-define( 'EMAIL_DIR', THEME_DIR . 'email/' );
 define( 'FONTS_DIR', THEME_DIR . 'fonts/' );
 define( 'IMAGE_DIR', THEME_DIR . 'images/' );
 define( 'INC_DIR', THEME_DIR . 'inc/' );
