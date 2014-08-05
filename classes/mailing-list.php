@@ -255,8 +255,8 @@ class Mailing_List {
 			Database::insert_row( static::$table, $data );
 			
 			$subscribe_email = array(
-				'sender' => get_option( 'mailing_list_settings_sender' ),
-				'reply_to' => get_option( 'mailing_list_settings_sender' ),
+				'sender' => ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
+				'reply_to' => ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
 				'recipient' => $email,
 				'subject' => 'Thanks for Subscribing!',
 				'template' => VIEWS_DIR . 'email/subscribe.php'
@@ -320,14 +320,14 @@ class Mailing_List {
 			Database::delete_row( static::$table, 'email', $email, true );
 
 			$unsubscribe_email = array(
-				'sender' => get_option( 'mailing_list_settings_sender' ),
-				'reply_to' => get_option( 'mailing_list_settings_sender' ),
+				'sender' => get_option( 'mailing_list_settings_sender', get_bloginfo( 'admin_email' ) ),
+				'reply_to' => get_option( 'mailing_list_settings_sender', get_bloginfo( 'admin_email' ) ),
 				'recipient' => $email,
 				'subject' => 'Unsubscribe Confirmation',
 				'template' => VIEWS_DIR . 'email/unsubscribe.php'
 			);
 
-			//new Email( $unsubscribe_email );
+			new Email( $unsubscribe_email );
 			return $status = 'success';
 
 		else :

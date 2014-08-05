@@ -21,8 +21,6 @@ class Email {
 
 	public function __construct( $args ) {
 
-		$this->settings['sender'] = get_bloginfo( 'admin_email' );
-		$this->settings['reply_to'] = get_bloginfo( 'admin_email' );
 		$this->settings = Functions::merge_array( $args, $this->settings );
 		$this->send_mail();
 
