@@ -52,7 +52,7 @@ class Mailing_List {
 
 	public function __construct( $args ) {
 
-		$this->settings['sender'] = ( !empty( get_option( 'mailing_list_settings_sender' ) ) ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' );
+		$this->settings['sender'] = ( get_option( 'mailing_list_settings_sender' ) !== false ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' );
 		$this->settings = Functions::merge_array( $args, $this->settings );
 
 		$this->setup_mailing_list();
