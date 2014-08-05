@@ -26,6 +26,8 @@ if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['post_id'] )
 
 	$resp = Popular::run_api_action( $query['action'], $query['post_id'] );
 
+else :
+	exit( 'You do not have permission to view this page.' );
 endif;
 
 // Return JSON response string

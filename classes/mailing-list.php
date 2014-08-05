@@ -6,6 +6,8 @@
  * Required models: Database, Encryption
  *
  * Future:
+ * - Integrate social media links with site-wide social media link settings
+ * - Add support for more social media links
  * - Add form support that uses JS (require jQuery?) (and if JS is not enabled?)
  * - Add send email functionality on subscribe and unsubscribe
  * - Setup cron job to manage monthly/weekly newsletter distribution of latest posts
@@ -27,7 +29,13 @@ class Mailing_List {
 
 	public $settings = array(
 		// key => array( default_value, field_type, label, options )
-		'sender' => array( '', 'text', 'Send Mail From:', NULL, 'no-reply@example.com' )
+		'sender' => array( '', 'text', 'Send Mail From', NULL, 'no-reply@example.com' ),
+		'facebook' => array( '', 'url', 'Facebook Link', NULL, 'http://facebook.com' ),
+		'twitter' => array( '', 'url', 'Twitter Link', NULL, 'http://twitter.com' ),
+		'pinterest' => array( '', 'url', 'Pinterest Link', NULL, 'http://pinterest.com' ),
+		'instagram' => array( '', 'url', 'Instagram Link', NULL, 'http://instagram.com' ),
+		'linkedin' => array( '', 'url', 'LinkedIn Link', NULL, 'http://linkedin.com' ),
+		'google' => array( '', 'url', 'Google Link', NULL, 'http://plus.google.com' )
 	);
 
 	public static $table = array(
@@ -253,7 +261,7 @@ class Mailing_List {
 				'template' => VIEWS_DIR . 'email/subscribe.php'
 			);
 
-			//new Email( $subscribe_email );
+			new Email( $subscribe_email );
 			return $status = 'success';
 
 		endif;
@@ -317,7 +325,7 @@ class Mailing_List {
 				'subject' => 'Unsubscribe Confirmation',
 				'template' => VIEWS_DIR . 'email/unsubscribe.php'
 			);
-			
+
 			//new Email( $unsubscribe_email );
 			return $status = 'success';
 
