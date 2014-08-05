@@ -109,7 +109,7 @@ class Theme {
 	public static function enqueue() {
 
 		// Stylesheets
-		wp_enqueue_style( 'primary-style', get_template_directory_uri() . '/css/adv.css', array(), '1.0' );
+		wp_enqueue_style( 'primary-style', get_template_directory_uri() . '/css/style.css', array(), '1.0' );
 
 		// Global Scripts
 		wp_enqueue_script( 'jquery' );

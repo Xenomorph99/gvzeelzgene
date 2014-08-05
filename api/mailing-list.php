@@ -11,7 +11,7 @@
 
 // Define as JSON application
 header( 'Content-type: application/json' );
-require_once 'config.php';
+require_once dirname( dirname( __FILE__ ) ) . '/config.php';
 
 // Set the default API response
 $resp = array(

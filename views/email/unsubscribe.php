@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-require_once 'config.php';
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/config.php';
 
 $settings = array(
 	'sender' => '',

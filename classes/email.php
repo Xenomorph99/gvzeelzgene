@@ -40,7 +40,7 @@ class Email {
 		$headers .= "X-Mailer: PHP/" . phpversion();
 
 		ob_start();
-		include_once $template;
+		require_once $template;
 		$message = ob_get_contents();
 		ob_end_clean();
 

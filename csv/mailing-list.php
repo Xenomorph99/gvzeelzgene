@@ -7,7 +7,7 @@
  * @since 1.0
  */
 
-require_once 'config.php';
+require_once dirname( dirname( __FILE__ ) ) . '/config.php';
 
 // Verify encryption key
 if( $_GET['key'] == get_option( 'mailing_list_key' ) ) :

@@ -7,6 +7,7 @@
  *
  * Future:
  * - Integrate social media links with site-wide social media link settings
+ * - Count subscribers and unsubscribers
  * - Add support for more social media links
  * - Add form support that uses JS (require jQuery?) (and if JS is not enabled?)
  * - Add send email functionality on subscribe and unsubscribe
