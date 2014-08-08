@@ -28,6 +28,9 @@ endif;
 
 extract( $settings );
 
+$web_url = get_template_directory_uri() . "/views/email/subscribe.php?sender=$sender&reply_to=$reply_to&recipient=$recipient&subject=$subject&template=$template";
+$unsubscribe_url = get_template_directory_uri() . "/api/mailing-list.php?action=unsubscribe&email=$recipient&redirect=" . get_bloginfo( 'url' );
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -36,7 +39,7 @@ extract( $settings );
 </head>
 
 <body>
-	<p>View in <a href="<?php echo get_template_directory_uri(); ?>/views/email/subscribe.php?sender=<?php echo $sender; ?>&reply_to=<?php echo $reply_to; ?>&recipient=<?php echo $recipient; ?>&subject=<?php echo $subject; ?>&template=<?php echo $template; ?>">Web Browser</a> | <a href="<?php echo get_template_directory_uri(); ?>/api/mailing-list.php?action=unsubscribe&email=<?php echo $recipient; ?>">Unsubscribe</a></p>
+	<p>View in <a href="<?php echo $web_url; ?>">Web Browser</a> | <a href="<?php echo $unsubscribe_url; ?>">Unsubscribe</a></p>
 	<table>
 
 		<thead>

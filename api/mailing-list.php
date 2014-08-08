@@ -18,15 +18,20 @@ $resp = array(
 	'status' => 'error',
 	'desc' => 'missing-parameters',
 	'message' => 'Warning: required parameters not found',
+	'user' => 'Please fill out all required fields.'
 );
 
-// Verify action
-$query = $_POST;
-if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['email'] ) ) :
+// Define parameters
+$params = $_GET;
 
-	$resp = Mailing_List::run_api_action( $query['action'], $query['email'] );
+// Verify parameters
+if( !empty( $params['action'] ) && !empty( $params['email'] ) ) {
+	$resp = Mailing_List::run_api_action( $params['action'], $params['email'] );
+}
 
-endif;
-
-// Return JSON response string
-echo json_encode( $resp );
+// Redirect or return JSON response string
+if( !empty( $params['redirect'] ) ) {
+	header( 'Location: ' . $params['redirect'] . '?' . http_build_query( $resp ), TRUE, 303 );
+} else {
+	echo json_encode( $resp );
+}

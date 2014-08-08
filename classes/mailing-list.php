@@ -36,7 +36,8 @@ class Mailing_List {
 		'pinterest' => array( '', 'url', 'Pinterest Link', NULL, 'http://pinterest.com' ),
 		'instagram' => array( '', 'url', 'Instagram Link', NULL, 'http://instagram.com' ),
 		'linkedin' => array( '', 'url', 'LinkedIn Link', NULL, 'http://linkedin.com' ),
-		'google' => array( '', 'url', 'Google Link', NULL, 'http://plus.google.com' )
+		'google' => array( '', 'url', 'Google Link', NULL, 'http://plus.google.com' ),
+		'ajax' => array( '1', 'checkbox', 'Enable Ajax Form Submit' )
 	);
 
 	public static $table = array(
@@ -179,6 +180,7 @@ class Mailing_List {
 				$resp['status'] = 'error';
 				$resp['desc'] = 'invalid-action';
 				$resp['message'] = 'Defined API action cannot be performed';
+				$resp['user'] = 'Sorry, something went wrong.  Please try again later.';
 				break;
 
 		}
@@ -203,18 +205,21 @@ class Mailing_List {
 					$resp['status'] = 'success';
 					$resp['desc'] = 'submitted';
 					$resp['message'] = 'The submitted email address has successfully been added to the mailing list.';
+					$resp['user'] = 'Thanks for subscribing!';
 					break;
 
 				case "duplicate" :
 					$resp['status'] = 'error';
 					$resp['desc'] = 'duplicate';
 					$resp['message'] = 'The submitted email address is already on the mailing list.';
+					$resp['user'] = 'Welcome back!  It looks like you already subscribed.';
 					break;
 
 				case "error" :
 					$resp['status'] = 'error';
 					$resp['desc'] = 'database-connection-error';
 					$resp['message'] = 'An error occured connecting to the database.  Try again later.';
+					$resp['user'] = 'Sorry, something went wrong.  Please try again later.';
 					break;
 
 			}
@@ -223,6 +228,7 @@ class Mailing_List {
 			$resp['status'] = 'error';
 			$resp['desc'] = 'invalid-format';
 			$resp['message'] = 'The submitted email address does not match the required format.';
+			$resp['user'] = 'Your email address isn\'t valid.  Please try again.';
 		endif;
 
 		return $resp;
@@ -286,18 +292,21 @@ class Mailing_List {
 					$resp['status'] = 'success';
 					$resp['desc'] = 'removed';
 					$resp['message'] = 'The submitted email address has successfully been removed from the mailing list.';
+					$resp['user'] = 'Your email has been successfully removed from our mailing list.';
 					break;
 
 				case "not-found" :
 					$resp['status'] = 'error';
 					$resp['desc'] = 'not-found';
 					$resp['message'] = 'The submitted email address is not on the mailing list.';
+					$resp['user'] = 'Your email address isn\'t on our mailing list.';
 					break;
 
 				case "error" :
 					$resp['status'] = 'error';
 					$resp['desc'] = 'database-connection-error';
 					$resp['message'] = 'An error occured connecting to the database.  Try again later.';
+					$resp['user'] = 'Sorry, something went wrong.  Please try again later.';
 					break;
 
 			}
@@ -306,6 +315,7 @@ class Mailing_List {
 			$resp['status'] = 'error';
 			$resp['desc'] = 'invalid-format';
 			$resp['message'] = 'The submitted email address does not match the required format.';
+			$resp['user'] = 'Your email address isn\'t valid.  Please try again.';
 		endif;
 
 		return $resp;
@@ -340,7 +350,7 @@ class Mailing_List {
 
 	}
 
-	public static function get_form( $template = '' ) {
+	public static function get_form( $desc = '', $desc_tag = '', $template = '' ) {
 
 		ob_start();
 		include ( !empty( $template ) ) ? $template : VIEWS_DIR . 'mailing-list-form.php';
@@ -350,9 +360,9 @@ class Mailing_List {
 
 	}
 
-	public static function form( $template = '' ) {
+	public static function form( $desc = '', $desc_tag = '', $template = '' ) {
 
-		echo static::get_form( $template );
+		echo static::get_form( $desc, $desc_tag, $template );
 
 	}
 

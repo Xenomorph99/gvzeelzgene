@@ -13,7 +13,7 @@ get_header(); ?>
 
 		<div id="main">
 			<h1>Front Page</h1>
-			<?php Mailing_List::form(); ?>
+			<?php Mailing_List::form( 'Enter your email below to subscribe', 'h3' ); ?>
 		</div><!--#main-->
 
 		<?php get_sidebar(); ?>
