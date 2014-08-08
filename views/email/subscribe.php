@@ -126,8 +126,8 @@ $count = count( $posts );
 										<tbody style="<?php echo $reset; ?>">
 
 											<?php foreach( $posts as $post ) : ?>
-											<?php if( $count = count( $posts ) && empty( get_option( $prefix . 'subscribe_banner' ) ) ) : ?>
-											<tr style="border-top:1px solid #d4d6d9; <?php echo $reset; ?>">	
+											<?php if( $count == count( $posts ) && empty( get_option( $prefix . 'subscribe_banner' ) ) ) : ?>
+											<tr style="border-top:1px solid #d4d6d9; <?php echo $reset; ?>">
 											<?php elseif( $count == 1 ) : ?>
 											<tr style="border-bottom:1px solid #d4d6d9; <?php echo $reset; ?>">
 											<?php else : ?>
@@ -142,7 +142,7 @@ $count = count( $posts );
 														<?php if( has_post_thumbnail( $post->ID ) ) : ?>
 															<?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?>
 														<?php else : ?>
-															<img src="#" alt="" width="150" height="150" style="<?php echo $reset; ?>" ondragstart="return false;">
+															<img src="<?php echo get_template_directory_uri(); ?>/images/email/default-thumb.jpg" alt="<?php echo $post->post_title; ?>" width="150" height="150" style="<?php echo $reset; ?>" ondragstart="return false;">
 														<?php endif; ?>
 														</a>
 													<span>

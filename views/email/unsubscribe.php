@@ -140,7 +140,7 @@ $count = count( $posts );
 														<?php if( has_post_thumbnail( $post->ID ) ) : ?>
 															<?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?>
 														<?php else : ?>
-															<img src="#" alt="" width="150" height="150" style="<?php echo $reset; ?>" ondragstart="return false;">
+															<img src="<?php echo get_template_directory_uri(); ?>/images/email/default-thumb.jpg" alt="<?php echo $post->post_title; ?>" width="150" height="150" style="<?php echo $reset; ?>" ondragstart="return false;">
 														<?php endif; ?>
 														</a>
 													<span>
