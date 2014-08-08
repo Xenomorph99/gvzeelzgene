@@ -21,14 +21,11 @@ $resp = array(
 );
 
 // Verify action
-//$query = $_POST;
-$query = $_GET;
+$query = $_POST;
 if( isset( $query ) && !empty( $query['action'] ) && !empty( $query['email'] ) ) :
 
 	$resp = Mailing_List::run_api_action( $query['action'], $query['email'] );
 
-else :
-	exit( 'You do not have permission to view this page.' );
 endif;
 
 // Return JSON response string

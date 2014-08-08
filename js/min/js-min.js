@@ -1,1 +1,1 @@
-var $=jQuery,Adv={init:function(){}};$(function(){Adv.init()});
+var $=jQuery,JS={init:function(){}};$(function(){JS.init()});

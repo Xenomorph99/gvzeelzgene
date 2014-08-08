@@ -16,6 +16,7 @@ var Admin = {
 		this.setMetaBoxToggles();
 		this.setMetaBoxCheckboxContainers();
 		this.setMetaBoxButtons();
+		this.exportCSV();
 		this.setPopularMetaBox();
 
 	},
@@ -84,6 +85,16 @@ var Admin = {
 			var section = box.find('.meta-box-form-section').last();
 			section.css('display', 'none').removeClass('meta-box-form-section').addClass('meta-box-form-section-disabled');
 			section.find('.meta-box-section-id').val('-' + section.find('.meta-box-section-id').val());
+		});
+
+	},
+
+	exportCSV: function() {
+
+		$('#mailing-list-export-btn').on('click', function(e) {
+			e.preventDefault();
+			var url = $(this).data('api');
+			window.open(url, 'csv');
 		});
 
 	},

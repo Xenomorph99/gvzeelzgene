@@ -254,9 +254,10 @@ class Mailing_List {
 
 			Database::insert_row( static::$table, $data );
 
+			$sender = ( get_option( 'mailing_list_settings_sender' ) && get_option( 'mailing_list_settings_sender' ) !== '' ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' );
 			$subscribe_email = array(
-				'sender' => ( get_option( 'mailing_list_settings_sender' ) !== false ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
-				'reply_to' => ( get_option( 'mailing_list_settings_sender' ) !== false ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
+				'sender' => $sender,
+				'reply_to' => $sender,
 				'recipient' => $email,
 				'subject' => 'Thanks for Subscribing!',
 				'template' => VIEWS_DIR . 'email/subscribe.php'
@@ -319,9 +320,10 @@ class Mailing_List {
 
 			Database::delete_row( static::$table, 'email', $email, true );
 
+			$sender = ( get_option( 'mailing_list_settings_sender' ) && get_option( 'mailing_list_settings_sender' ) !== '' ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' );
 			$unsubscribe_email = array(
-				'sender' => ( get_option( 'mailing_list_settings_sender' ) !== false ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
-				'reply_to' => ( get_option( 'mailing_list_settings_sender' ) !== false ) ? get_option( 'mailing_list_settings_sender' ) : get_bloginfo( 'admin_email' ),
+				'sender' => $sender,
+				'reply_to' => $sender,
 				'recipient' => $email,
 				'subject' => 'Unsubscribe Confirmation',
 				'template' => VIEWS_DIR . 'email/unsubscribe.php'
@@ -340,8 +342,11 @@ class Mailing_List {
 
 	public static function get_form( $template = '' ) {
 
-		include $template = ( !empty( $template ) ) ? $template : VIEWS_DIR . 'mailing-list-form.php';
-		return $s;
+		ob_start();
+		include ( !empty( $template ) ) ? $template : VIEWS_DIR . 'mailing-list-form.php';
+		$html = ob_get_contents();
+		ob_end_clean();
+		return $html;
 
 	}
 

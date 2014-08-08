@@ -13,7 +13,7 @@
 // Repurpose the dollar sign variable
 var $ = jQuery;
 
-var Adv = {
+var JS = {
 
 	init: function() {
 		
@@ -24,5 +24,5 @@ var Adv = {
 };
 
 $(function() {
-	Adv.init();
+	JS.init();
 });

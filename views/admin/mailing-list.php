@@ -35,6 +35,8 @@ $table_cols = array(
 	'timestamp' => 'Timestamp'
 );
 
+$csv_api = get_template_directory_uri() . '/csv/mailing-list.php?action=export&file=mailing-list.csv&key=' . get_option( 'mailing_list_key' );
+
 ?>
 <div class="wrap">
 
@@ -62,7 +64,7 @@ $table_cols = array(
 		<input type="hidden" name="v" value="<?php echo $current_view; ?>">
 
 		<p class="search-box">
-			<button type="submit" name="exp" id="mailing-list-export-btn" class="button" value="true" data-key="<?php echo get_option( 'mailing_list_key' ); ?>">Export CSV</button>
+			<button type="submit" name="exp" id="mailing-list-export-btn" class="button" value="true" data-api="<?php echo $csv_api; ?>">Export CSV</button>
 		</p><!--.search-box-->
 
 		<div class="tablenav top">

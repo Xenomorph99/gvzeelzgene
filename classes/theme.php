@@ -118,12 +118,12 @@ class Theme {
 
 		// Minified scripts (non minified scripts will only be displayed on the local install)
 		if( $_SERVER['HTTP_HOST'] === LOCAL_INSTALL || $_SERVER['HTTP_HOST'] === CODEKIT_SERVER ) {
-			wp_enqueue_script( 'device', get_template_directory_uri() . '/js/device.js', array( 'jquery' ), '1.0' );
-			wp_enqueue_script( 'query', get_template_directory_uri() . '/js/query.js', array( 'jquery' ), '1.0' );
-			wp_enqueue_script( 'js', get_template_directory_uri() . '/js/js.js', array( 'jquery', 'easing', 'cycle', 'device', 'query' ), '1.0' );
+			//wp_enqueue_script( 'device', get_template_directory_uri() . '/js/device.js', array( 'jquery' ), '1.0' );
+			//wp_enqueue_script( 'query', get_template_directory_uri() . '/js/query.js', array( 'jquery' ), '1.0' );
+			wp_enqueue_script( 'js', get_template_directory_uri() . '/js/js.js', array( 'jquery', 'easing', 'cycle' ), '1.0' );
 		} else {
-			wp_enqueue_script( 'device', get_template_directory_uri() . '/js/min/device-min.js', array( 'jquery' ), '1.0' );
-			wp_enqueue_script( 'query', get_template_directory_uri() . '/js/min/query-min.js', array( 'jquery' ), '1.0' );
+			//wp_enqueue_script( 'device', get_template_directory_uri() . '/js/min/device-min.js', array( 'jquery' ), '1.0' );
+			//wp_enqueue_script( 'query', get_template_directory_uri() . '/js/min/query-min.js', array( 'jquery' ), '1.0' );
 			wp_enqueue_script( 'js', get_template_directory_uri() . '/js/min/js-min.js', array( 'jquery', 'easing', 'cycle' ), '1.0' );
 		}
 
