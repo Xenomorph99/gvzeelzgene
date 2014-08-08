@@ -31,12 +31,20 @@ class Mailing_List {
 	public $settings = array(
 		// key => array( default_value, field_type, label, options )
 		'sender' => array( '', 'text', 'Send Mail From', NULL, 'no-reply@example.com' ),
+		'logo' => array( '', 'url', 'Email Logo <small style="font-weight:normal;"><em>(height: 90px)</em></small>', NULL, 'url' ),
+		'logo_width' => array( '250', 'number', 'Email Logo Width <small style="font-weight:normal;"><em>(px)</em></small>' ),
+		'subscribe_banner' => array( '', 'url', 'Subscribe Banner <small style="font-weight:normal;"><em>(width: 600px)</em></small>', NULL, 'url' ),
+		'subscribe_banner_height' => array( '200', 'number', 'Subscribe Banner Height <small style="font-weight:normal;"><em>(px)</em></small>' ),
+		'unsubscribe_banner' => array( '', 'url', 'Unsubscribe Banner <small style="font-weight:normal;"><em>(width: 600px)</em></small>', NULL, 'url' ),
+		'unsubscribe_banner_height' => array( '200', 'number', 'Unsubscribe Banner Height <small style="font-weight:normal;"><em>(px)</em></small>' ),
 		'facebook' => array( '', 'url', 'Facebook Link', NULL, 'http://facebook.com' ),
 		'twitter' => array( '', 'url', 'Twitter Link', NULL, 'http://twitter.com' ),
 		'pinterest' => array( '', 'url', 'Pinterest Link', NULL, 'http://pinterest.com' ),
 		'instagram' => array( '', 'url', 'Instagram Link', NULL, 'http://instagram.com' ),
 		'linkedin' => array( '', 'url', 'LinkedIn Link', NULL, 'http://linkedin.com' ),
 		'google' => array( '', 'url', 'Google Link', NULL, 'http://plus.google.com' ),
+		'youtube' => array( '', 'url', 'YouTube Link', NULL, 'http://youtube.com' ),
+		'tumblr' => array( '', 'url', 'Tumblr Link', NULL, 'http://tumblr.com' ),
 		'ajax' => array( '1', 'checkbox', 'Enable Ajax Form Submit' )
 	);
 

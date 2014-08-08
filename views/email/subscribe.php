@@ -9,6 +9,8 @@
 require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/config.php';
 
 $prefix = 'mailing_list_settings_';
+$reset = 'margin:0; padding:0;';
+$helvetica = "'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif";
 $settings = array(
 	'sender' => '',
 	'reply_to' => '',
@@ -28,8 +30,21 @@ endif;
 
 extract( $settings );
 
-$web_url = get_template_directory_uri() . "/views/email/subscribe.php?sender=$sender&reply_to=$reply_to&recipient=$recipient&subject=$subject&template=$template";
+$web_url = get_template_directory_uri() . '/views/email/subscribe.php?' . http_build_query( $settings );
 $unsubscribe_url = get_template_directory_uri() . "/api/mailing-list.php?action=unsubscribe&email=$recipient&redirect=" . get_bloginfo( 'url' );
+
+$social = array();
+if( !empty( get_option( $prefix . 'facebook' ) ) ) { $social['facebook'] = get_option( $prefix . 'facebook' ); }
+if( !empty( get_option( $prefix . 'twitter' ) ) ) { $social['twitter'] = get_option( $prefix . 'twitter' ); }
+if( !empty( get_option( $prefix . 'pinterest' ) ) ) { $social['pinterest'] = get_option( $prefix . 'pinterest' ); }
+if( !empty( get_option( $prefix . 'google' ) ) ) { $social['google'] = get_option( $prefix . 'google' ); }
+if( !empty( get_option( $prefix . 'instagram' ) ) ) { $social['instagram'] = get_option( $prefix . 'instagram' ); }
+if( !empty( get_option( $prefix . 'linkedin' ) ) ) { $social['linkedin'] = get_option( $prefix . 'linkedin' ); }
+if( !empty( get_option( $prefix . 'youtube' ) ) ) { $social['youtube'] = get_option( $prefix . 'youtube' ); }
+if( !empty( get_option( $prefix . 'tumblr' ) ) ) { $social['tumblr'] = get_option( $prefix . 'tumblr' ); }
+
+$posts = wp_get_recent_posts( array( 'numberposts' => 3 ), OBJECT );
+$count = count( $posts );
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -38,79 +53,169 @@ $unsubscribe_url = get_template_directory_uri() . "/api/mailing-list.php?action=
 	<title><?php echo $subject . ' | ' . get_bloginfo( 'blogname' ); ?></title>
 </head>
 
-<body>
-	<p>View in <a href="<?php echo $web_url; ?>">Web Browser</a> | <a href="<?php echo $unsubscribe_url; ?>">Unsubscribe</a></p>
-	<table>
+<body style="color:#bcbec0; font:300 13px/19px <?php echo $helvetica; ?>; background-color:#f0f0f0; <?php echo $reset; ?>">
 
-		<thead>
-			<tr>
-				<table>
-					<tr>
-						
-						<td>LOGO</td>
+	<table style="border-collapse:collapse; width:600px; margin:0 auto; padding:0; border:none; line-height:0;" cellpadding="0" cellspacing="0">
+		<tbody style="<?php echo $reset; ?>">
 
-						<?php if( get_option( $prefix . 'facebook' ) ) { ?>
-						<td><a href="<?php echo get_option( $prefix . 'facebook' ); ?>">Facebook</a></td>
-						<?php } ?>
-
-						<?php if( get_option( $prefix . 'twitter' ) ) { ?>
-						<td><a href="<?php echo get_option( $prefix . 'twitter' ); ?>">Twitter</a></td>
-						<?php } ?>
-
-					</tr>
-				</table>
+			<tr style="<?php echo $reset; ?>">
+				<td style="width:600px; <?php echo $reset; ?>">
+					<p style="line-height:19px; text-align:center; margin:8px 0 16px 0; padding:0;">View in <a href="<?php echo $web_url; ?>" style="color:#bcbec0; <?php echo $reset; ?>">Web Browser</a> | <a href="<?php echo $unsubscribe_url; ?>" style="color:#bcbec0; <?php echo $reset; ?>">Unsubscribe</a></p>
+				</td>
 			</tr>
-			<tr><td>Women</td></tr>
-			<tr><td>Thanks for Subscribing!</td></tr>
-			<tr><td>Check out these special offers:</td></tr>
-		</thead>
 
-		<tbody>
-			<tr>
+			<tr style="<?php echo $reset; ?>">
+				<td style="width:600px; <?php echo $reset; ?>">
 
-				<?php $posts = wp_get_recent_posts( array( 'numberposts' => 3 ), OBJECT ); ?>
-				<?php foreach( $posts as $post ) : ?>
-				<td>
-					<table>
-						<tr>
-							<td>
-								<?php if( has_post_thumbnail( $post->ID ) ) : ?>
-									<?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?>
-								<?php else : ?>
-									<img src="#" alt="">
-								<?php endif; ?>
-							</td>
-							<td>
-								<h1><?php echo $post->post_title; ?></h1>
-								<p><?php echo $post->post_excerpt . '... <a href="' . get_permalink( $post->ID ) . '">learn more</a>'; ?></p>
-							</td>
-						</tr>
+					<table style="color:#58595b; background-color:#ffffff; border-collapse:collapse; width:600px; margin:0 auto; padding:0; line-height:0; border:none;" cellpadding="0" cellspacing="0">
+
+						<?php if( !empty( $posts ) ) : ?>
+						<thead style="<?php echo $reset; ?>">
+						<?php endif; ?>
+
+							<tr class="email-header" style="<?php echo $reset; ?>">
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+								<td style="<?php echo $reset; ?>">
+									<table style="border-collapse:collapse; width:560px; border:none; margin:0 auto; padding:0; line-height:0;" cellpadding="0" cellspacing="0">
+										<tbody style="<?php echo $reset; ?>">
+											<tr style="height:90px; <?php echo $reset; ?>">
+
+												<td id="logo" style="<?php echo $reset; ?>">
+													<a href="<?php bloginfo( 'url' ); ?>" style="display:inline-block; <?php echo $reset; ?>">
+														<?php if( !empty( get_option( $prefix . 'logo' ) ) ) : ?>
+														<img src="<?php echo get_option( $prefix . 'logo' ); ?>" alt="<?php bloginfo( 'name' ); ?>" width="<?php echo get_option( $prefix . 'logo_width' ); ?>" height="90" style="<?php echo $reset; ?>" ondragstart="return false;">
+														<?php else : ?>
+														<h1 style="font:300 32px/90px <?php echo $helvetica; ?>; <?php echo $reset; ?>"><?php bloginfo( 'name' ); ?></h1>
+														<?php endif; ?>
+													</a>
+												</td>
+
+												<?php foreach( $social as $name => $url ) : ?>
+												<td style="width:26px; margin:0; padding:0 4px;">
+													<a href="<?php echo $url; ?>" style="width:26px; height:26px; display:block; <?php echo $reset; ?>" target="_blank">
+														<img src="<?php echo get_template_directory_uri() . '/images/email/social/' . $name . '.png'; ?>" alt="<?php echo $name; ?>" width="26" height="26" style="<?php echo $reset; ?>" ondragstart="return false;">
+													</a>
+												</td>
+												<?php endforeach; ?>
+
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+							</tr>
+
+							<?php if( !empty( get_option( $prefix . 'subscribe_banner' ) ) ) : ?>
+							<tr class="banner" style="<?php echo $reset; ?>">
+								<td style="background-color:#bdbdbd; line-height:0; <?php echo $reset; ?>" colspan="3">
+									<img src="<?php echo get_option( $prefix . 'subscribe_banner' ); ?>" alt="" width="600" height="<?php echo get_option( $prefix . 'subscribe_banner_height' ); ?>" style="<?php echo $reset; ?>" ondragstart="return false;">
+								</td>
+							</tr>
+							<?php endif; ?>
+
+						<?php if( !empty( $posts ) ) : ?>
+						</thead>
+						<?php endif; ?>
+
+						<?php if( !empty( $posts ) ) : ?>
+						<tbody style="<?php echo $reset; ?>">
+							<tr style="<?php echo $reset; ?>">
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+								<td style="<?php echo $reset; ?>">
+									<table style="border-collapse:collapse; width: 560px; border:none; margin:0 auto; padding:0; line-height:0;" cellpadding="0" cellspacing="0">
+										<tbody style="<?php echo $reset; ?>">
+
+											<?php foreach( $posts as $post ) : ?>
+											<?php if( $count = count( $posts ) && empty( get_option( $prefix . 'subscribe_banner' ) ) ) : ?>
+											<tr style="border-top:1px solid #d4d6d9; <?php echo $reset; ?>">	
+											<?php elseif( $count == 1 ) : ?>
+											<tr style="border-bottom:1px solid #d4d6d9; <?php echo $reset; ?>">
+											<?php else : ?>
+											<tr style="<?php echo $reset; ?>">
+											<?php endif; ?>
+
+												<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+
+												<td style='line-height:0; <?php echo $reset; ?>'>
+													<span style="display:block; overflow:hidden; width:150px; height:150px; <?php echo $reset; ?> -webkit-border-radius:75px; -moz-border-radius:75px; -o-border-radius:75px; -ms-border-radius:75px; border-radius:75px;">
+														<a href="<?php echo get_permalink( $post->ID ); ?>" style="display:block; <?php echo $reset; ?>">
+														<?php if( has_post_thumbnail( $post->ID ) ) : ?>
+															<?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?>
+														<?php else : ?>
+															<img src="#" alt="" width="150" height="150" style="<?php echo $reset; ?>" ondragstart="return false;">
+														<?php endif; ?>
+														</a>
+													<span>
+												</td>
+
+												<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+
+												<?php if( $count > 1 ) : ?>
+												<td style="margin:0; padding:20px 0; border-bottom:1px solid #d4d6d9;">
+												<?php else : ?>
+												<td style="margin:0; padding:20px 0;">
+												<?php endif; ?>
+													<h2 style="font:100 20px/24px <?php echo $helvetica; ?>; margin:0 0 4px 0; padding:0;"><a href="<?php echo get_permalink( $post->ID ); ?>" style="color:#58595b; text-decoration:none; <?php echo $reset; ?>"><?php echo $post->post_title; ?></a></h2>
+													<p style="font:100 14px/20px <?php echo $helvetica; ?>; margin:0 0 12px 0; padding:0;"><?php echo $post->post_excerpt; ?>&nbsp;&nbsp;<a href="<?php echo get_permalink( $post->ID ); ?>" style="color:#f48c7f; font-style:italic; <?php echo $reset; ?>">read more</a></p>
+												</td>
+
+												<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+
+											</tr>
+											<?php $count--; ?>
+											<?php endforeach; ?>
+
+										</tbody>
+									</table>
+								</td>
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+							</tr>
+						</tbody>
+
+						<tfoot style="<?php echo $reset; ?>">
+							<tr style="height:60px; <?php echo $reset; ?>">
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+								<td style="<?php echo $reset; ?>">
+
+									<table style="border-collapse:collapse; width:560px; margin:0 auto; padding:0; line-height:0; border:none;" cellpadding="0" cellspacing="0">
+										<tbody style="<?php echo $reset; ?>">
+											<tr style="<?php echo $reset; ?>">
+												<td style="<?php echo $reset; ?>">&nbsp;</td>
+
+												<?php foreach( $social as $name => $url ) : ?>
+												<td style="width:26px; margin:0; padding:0 6px;">
+													<a href="<?php echo $url; ?>" style="margin:0 12px; width:26px; height:26px; display:block; <?php echo $reset; ?>" target="_blank">
+														<img src="<?php echo get_template_directory_uri() . '/images/email/social/' . $name . '.png'; ?>" alt="<?php echo $name; ?>" width="26" height="26" style="<?php echo $reset; ?>" ondragstart="return false;">
+													</a>
+												</td>
+												<?php endforeach; ?>
+
+												<td style="<?php echo $reset; ?>">&nbsp;</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</td>
+								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
+							</tr>
+						</tfoot>
+						<?php endif; ?>
+
 					</table>
+
 				</td>
-				<?php endforeach; ?>
-				
 			</tr>
+
+			<tr style="<?php echo $reset; ?>">
+				<td style="width:600px; <?php echo $reset; ?>">
+					<p style="line-height: 19px; text-align:center; margin:10px 0 16px 0; padding:0;">Copyright &copy; <?php echo date("Y"); ?>,&nbsp;<a href="<?php echo home_url(); ?>" style="color:#bcbec0; text-decoration:none; <?php echo $reset; ?>"><?php bloginfo( 'blogname' ); ?></a>. All Rights Reserved.</p>
+					<p style="line-height: 19px; text-align:center; margin:0 0 30px 0; padding:0;">View in <a href="<?php echo $web_url; ?>" style="color:#bcbec0; <?php echo $reset; ?>">Web Browser</a> | <a href="<?php echo $unsubscribe_url; ?>" style="color:#bcbec0; <?php echo $reset; ?>">Unsubscribe</a></p>
+				</td>
+			</tr>
+
 		</tbody>
-
-		<tfoot>
-			<tr>
-				<td>
-
-					<?php if( get_option( $prefix . 'facebook' ) ) { ?>
-					<span><a href="<?php echo get_option( $prefix . 'facebook' ); ?>">Facebook</a></span>
-					<?php } ?>
-
-					<?php if( get_option( $prefix . 'twitter' ) ) { ?>
-					<span><a href="<?php echo get_option( $prefix . 'twitter' ); ?>">Twitter</a></span>
-					<?php } ?>
-
-				</td>
-			</tr>
-		</tfoot>
-
 	</table>
-	<p>Copyright &copy; <?php echo date("Y"); ?>,&nbsp;<a href="<?php echo home_url(); ?>"><?php bloginfo( 'blogname' ); ?></a>. All Rights Reserved.</p>
-	<p>View in <a href="<?php echo $template; ?>?sender=<?php echo $sender; ?>&reply_to=<?php echo $reply_to; ?>&recipient=<?php echo $recipient; ?>&subject=<?php echo $subject; ?>&template=<?php echo $template; ?>">Web Browser</a> | <a href="<?php echo get_template_directory_uri(); ?>/api/mailing-list.php?action=unsubscribe&email=<?php echo $recipient; ?>">Unsubscribe</a></p>
+
 </body>
 
 </html>
