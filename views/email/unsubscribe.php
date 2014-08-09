@@ -32,14 +32,14 @@ extract( $settings );
 $web_url = get_template_directory_uri() . '/views/email/unsubscribe.php?' . http_build_query( $settings );
 
 $social = array();
-if( !empty( get_option( $prefix . 'facebook' ) ) ) { $social['facebook'] = get_option( $prefix . 'facebook' ); }
-if( !empty( get_option( $prefix . 'twitter' ) ) ) { $social['twitter'] = get_option( $prefix . 'twitter' ); }
-if( !empty( get_option( $prefix . 'pinterest' ) ) ) { $social['pinterest'] = get_option( $prefix . 'pinterest' ); }
-if( !empty( get_option( $prefix . 'google' ) ) ) { $social['google'] = get_option( $prefix . 'google' ); }
-if( !empty( get_option( $prefix . 'instagram' ) ) ) { $social['instagram'] = get_option( $prefix . 'instagram' ); }
-if( !empty( get_option( $prefix . 'linkedin' ) ) ) { $social['linkedin'] = get_option( $prefix . 'linkedin' ); }
-if( !empty( get_option( $prefix . 'youtube' ) ) ) { $social['youtube'] = get_option( $prefix . 'youtube' ); }
-if( !empty( get_option( $prefix . 'tumblr' ) ) ) { $social['tumblr'] = get_option( $prefix . 'tumblr' ); }
+if( get_option( $prefix . 'facebook' ) !== '' ) { $social['facebook'] = get_option( $prefix . 'facebook' ); }
+if( get_option( $prefix . 'twitter' ) !== '' ) { $social['twitter'] = get_option( $prefix . 'twitter' ); }
+if( get_option( $prefix . 'pinterest' ) !== '' ) { $social['pinterest'] = get_option( $prefix . 'pinterest' ); }
+if( get_option( $prefix . 'google' ) !== '' ) { $social['google'] = get_option( $prefix . 'google' ); }
+if( get_option( $prefix . 'instagram' ) !== '' ) { $social['instagram'] = get_option( $prefix . 'instagram' ); }
+if( get_option( $prefix . 'linkedin' ) !== '' ) { $social['linkedin'] = get_option( $prefix . 'linkedin' ); }
+if( get_option( $prefix . 'youtube' ) !== '' ) { $social['youtube'] = get_option( $prefix . 'youtube' ); }
+if( get_option( $prefix . 'tumblr' ) !== '' ) { $social['tumblr'] = get_option( $prefix . 'tumblr' ); }
 
 $posts = wp_get_recent_posts( array( 'numberposts' => 3 ), OBJECT );
 $count = count( $posts );
@@ -80,7 +80,7 @@ $count = count( $posts );
 
 												<td id="logo" style="<?php echo $reset; ?>">
 													<a href="<?php bloginfo( 'url' ); ?>" style="display:inline-block; <?php echo $reset; ?>">
-														<?php if( !empty( get_option( $prefix . 'logo' ) ) ) : ?>
+														<?php if( get_option( $prefix . 'logo' ) !== '' ) : ?>
 														<img src="<?php echo get_option( $prefix . 'logo' ); ?>" alt="<?php bloginfo( 'name' ); ?>" width="<?php echo get_option( $prefix . 'logo_width' ); ?>" height="90" style="<?php echo $reset; ?>" ondragstart="return false;">
 														<?php else : ?>
 														<h1 style="font:300 32px/90px <?php echo $helvetica; ?>; <?php echo $reset; ?>"><?php bloginfo( 'name' ); ?></h1>
@@ -103,7 +103,7 @@ $count = count( $posts );
 								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
 							</tr>
 
-							<?php if( !empty( get_option( $prefix . 'unsubscribe_banner' ) ) ) : ?>
+							<?php if( get_option( $prefix . 'unsubscribe_banner' ) !== '' ) : ?>
 							<tr class="banner" style="<?php echo $reset; ?>">
 								<td style="background-color:#bdbdbd; line-height:0; <?php echo $reset; ?>" colspan="3">
 									<img src="<?php echo get_option( $prefix . 'unsubscribe_banner' ); ?>" alt="" width="600" height="<?php echo get_option( $prefix . 'unsubscribe_banner_height' ); ?>" style="<?php echo $reset; ?>" ondragstart="return false;">
@@ -124,7 +124,7 @@ $count = count( $posts );
 										<tbody style="<?php echo $reset; ?>">
 
 											<?php foreach( $posts as $post ) : ?>
-											<?php if( $count == count( $posts ) && empty( get_option( $prefix . 'unsubscribe_banner' ) ) ) : ?>
+											<?php if( $count == count( $posts ) && get_option( $prefix . 'unsubscribe_banner' ) == '' ) : ?>
 											<tr style="border-top:1px solid #d4d6d9; <?php echo $reset; ?>">
 											<?php elseif( $count == 1 ) : ?>
 											<tr style="border-bottom:1px solid #d4d6d9; <?php echo $reset; ?>">
