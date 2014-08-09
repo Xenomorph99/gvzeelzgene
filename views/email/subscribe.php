@@ -105,7 +105,7 @@ $count = count( $posts );
 								<td style="width:20px; display:block; <?php echo $reset; ?>">&nbsp;</td>
 							</tr>
 
-							<?php if( !empty( get_option( $prefix . 'subscribe_banner' ) ) ) : ?>
+							<?php if( get_option( $prefix . 'subscribe_banner' ) !== '' ) : ?>
 							<tr class="banner" style="<?php echo $reset; ?>">
 								<td style="background-color:#bdbdbd; line-height:0; <?php echo $reset; ?>" colspan="3">
 									<img src="<?php echo get_option( $prefix . 'subscribe_banner' ); ?>" alt="" width="600" height="<?php echo get_option( $prefix . 'subscribe_banner_height' ); ?>" style="<?php echo $reset; ?>" ondragstart="return false;">
