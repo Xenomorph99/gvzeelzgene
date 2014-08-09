@@ -124,7 +124,9 @@ $count = count( $posts );
 										<tbody style="<?php echo $reset; ?>">
 
 											<?php foreach( $posts as $post ) : ?>
-											<?php if( $count == count( $posts ) && get_option( $prefix . 'unsubscribe_banner' ) == '' ) : ?>
+											<?php if( $count == count( $posts ) && get_option( $prefix . 'subscribe_banner' ) == '' && $count == 1 ) : ?>
+											<tr style="border-top:1px solid #d4d6d9; border-bottom:1px solid #d4d6d9; <?php echo $reset; ?>">
+											<?php elseif( $count == count( $posts ) && get_option( $prefix . 'unsubscribe_banner' ) == '' ) : ?>
 											<tr style="border-top:1px solid #d4d6d9; <?php echo $reset; ?>">
 											<?php elseif( $count == 1 ) : ?>
 											<tr style="border-bottom:1px solid #d4d6d9; <?php echo $reset; ?>">

@@ -35,6 +35,7 @@ $(function() {
 			},
 			success: function(resp) {
 				if(resp.status === 'success') {
+					form.find('.email').val('');
 					form.append('<p class="message">' + resp.user + '</p>');
 				} else {
 					form.append('<p class="message">' + resp.user + '</p>');
