@@ -45,7 +45,14 @@ class Mailing_List {
 		'google' => array( '', 'url', 'Google Link', NULL, 'http://plus.google.com' ),
 		'youtube' => array( '', 'url', 'YouTube Link', NULL, 'http://youtube.com' ),
 		'tumblr' => array( '', 'url', 'Tumblr Link', NULL, 'http://tumblr.com' ),
-		'ajax' => array( '1', 'checkbox', 'Enable Ajax Form Submit' )
+		'ajax' => array( '1', 'checkbox', 'Enable Ajax Form Submit' ),
+		'color_body' => array( '', 'text', 'Body Color #', NULL, '000000' ),
+		'color_container' => array( '', 'text', 'Container Color #', NULL, '000000' ),
+		'color_banner' => array( '', 'text', 'Banner Background Color #', NULL, '000000' ),
+		'color_text_heading' => array( '', 'text', 'Heading Color #', NULL, '000000' ),
+		'color_text_primary' => array( '', 'text', 'Primary Text Color #', NULL, '000000' ),
+		'color_text_secondary' => array( '', 'text', 'Secondary Text Color #', NULL, '000000' ),
+		'color_text_link' => array( '', 'text', 'Text Link Color #', NULL, '000000' )
 	);
 
 	public static $table = array(
