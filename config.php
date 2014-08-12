@@ -15,7 +15,7 @@ define( 'REMOTE_INSTALL', '' );
 define( 'LOCAL_INSTALL', 'gvzeelzgene.local' );
 define( 'CODEKIT_SERVER', 'colton.local:5757' );
 
-// Include the Intoor Library
+// Include the Интоор Library
 require_once dirname( __FILE__ ) . '/lib/config.php';
 
 // Include the Gvzeelzgene theme class
