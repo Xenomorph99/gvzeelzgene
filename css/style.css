@@ -101,7 +101,6 @@ nav,
 section {
   display: block; }
 
-/* -------------------- FONTS -------------------- */
 /* -------------------- GENERAL TAGS & PAGE ATTRIBUTES -------------------- */
 html {
   position: relative;
@@ -110,8 +109,8 @@ html {
   height: 100%; }
 
 body {
-  color: black;
-  font: 100 20px/24px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #58595b;
+  font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   font-smoothing: subpixel-antialiased;
   background: white;
@@ -133,50 +132,50 @@ body {
 
 ::-moz-selection {
   color: white;
-  background-color: red; }
+  background-color: #8b8c8e; }
 
 ::selection {
   color: white;
-  background-color: red; }
+  background-color: #8b8c8e; }
 
 /* -------------------- TAGS ASSOCIATED WITH TEXT -------------------- */
 h1 {
-  font-size: 52px;
+  font-size: 50px;
   line-height: 62px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 h2 {
-  font-size: 40px;
+  font-size: 38px;
   line-height: 50px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 h3 {
-  font-size: 28px;
+  font-size: 26px;
   line-height: 36px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 h4 {
-  font-size: 26px;
+  font-size: 24px;
   line-height: 30px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 h5 {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 26px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 h6 {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
-  font-weight: 700; }
+  font-weight: 100; }
 
 p {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   margin-bottom: 24px; }
 
 a {
-  color: blue;
+  color: #f48c7f;
   text-decoration: none;
   outline: none;
   cursor: pointer; }
@@ -222,34 +221,34 @@ label[for] {
   cursor: pointer; }
 
 input {
-  color: darkgray;
-  font: 100 20px/20px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #58595b;
+  font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 100%;
   vertical-align: middle;
   *overflow: visible;
-  border-radius: 4px;
-  border: 1px solid lightgray;
+  border-radius: 0;
+  border: 1px solid #f48c7f;
   outline: none; }
   input::-moz-focus-inner {
     padding: 0;
     border: 0; }
   input:-moz-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   input:-ms-input-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   input::-webkit-input-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   input[disabled], input[readonly] {
     background: #f8f8f8;
     cursor: not-allowed; }
   input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], input[type="file"], input[type="search"] {
-    color: darkgray;
+    color: #58595b;
     background: white;
     display: inline-block;
-    height: 20px;
+    height: 24px;
     padding: 4px 6px;
-    border: 1px solid lightgray;
-    border-radius: 4px;
+    border: 1px solid #f48c7f;
+    border-radius: 0;
     -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -263,33 +262,33 @@ input {
     input[type="text"][disabled], input[type="text"][readonly], input[readonly][type="password"], input[readonly][type="datetime"], input[readonly][type="datetime-local"], input[readonly][type="date"], input[readonly][type="month"], input[readonly][type="time"], input[readonly][type="week"], input[readonly][type="number"], input[readonly][type="email"], input[readonly][type="url"], input[readonly][type="tel"], input[readonly][type="color"], input[readonly][type="file"], input[readonly][type="search"], input[disabled][type="password"], input[disabled][type="datetime"], input[disabled][type="datetime-local"], input[disabled][type="date"], input[disabled][type="month"], input[disabled][type="time"], input[disabled][type="week"], input[disabled][type="number"], input[disabled][type="email"], input[disabled][type="url"], input[disabled][type="tel"], input[disabled][type="color"], input[disabled][type="file"], input[disabled][type="search"] {
       background: #f8f8f8; }
     input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus, input[type="color"]:focus, input[type="file"]:focus, input[type="search"]:focus {
-      border-color: #33ccff;
+      border-color: #f48c7f;
       outline: none;
       outline: thin dotted \9;
       /* IE6-9 */
-      -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #66d9ff;
-      -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #66d9ff;
-      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #66d9ff;
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #66d9ff;
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #66d9ff; }
+      -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f48c7f;
+      -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f48c7f;
+      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f48c7f;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f48c7f;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #f48c7f; }
   input[type="file"] {
-    font: 100 20px/20px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    line-height: 30px;
-    height: 30px;
+    font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    line-height: 34px;
+    height: 34px;
     *margin-top: 4px;
     width: auto; }
     input[type="file"]:focus {
-      outline: thin dotted #33ccff;
+      outline: thin dotted #f48c7f;
       outline: 5px auto -webkit-focus-ring-color;
       outline-offset: -2px; }
   input[type="image"] {
     width: auto; }
   input[type="button"], input[type="reset"], input[type="submit"] {
     color: white;
-    background-color: red;
+    background-color: #f48c7f;
     width: auto;
-    border-radius: 4px;
-    border: 1px solid #e60000;
+    border-radius: 0;
+    border: 1px solid #f48c7f;
     cursor: pointer;
     -webkit-appearance: button;
     -ms-transition: all 200ms ease;
@@ -298,11 +297,11 @@ input {
     -webkit-transition: all 200ms ease;
     transition: all 200ms ease; }
     input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover {
-      background-color: #ff1a1a;
-      border-color: red; }
+      background-color: #f69d92;
+      border-color: #f69d92; }
     input[type="button"]:active, input[type="reset"]:active, input[type="submit"]:active {
-      background-color: #e60000;
-      border-color: #cc0000;
+      background-color: #f38476;
+      border-color: #f38476;
       -ms-transition: none;
       -o-transition: none;
       -moz-transition: none;
@@ -317,7 +316,7 @@ input {
       background-color: transparent;
       cursor: not-allowed; }
     input[type="radio"]:focus {
-      outline: thin dotted #33ccff;
+      outline: thin dotted #f48c7f;
       outline: 5px auto -webkit-focus-ring-color;
       outline-offset: -2px; }
   input[type="checkbox"] {
@@ -329,7 +328,7 @@ input {
       background-color: transparent;
       cursor: not-allowed; }
     input[type="checkbox"]:focus {
-      outline: thin dotted #33ccff;
+      outline: thin dotted #f48c7f;
       outline: 5px auto -webkit-focus-ring-color;
       outline-offset: -2px; }
   input[type="search"] {
@@ -342,25 +341,25 @@ input {
     input[type="search"]::-webkit-search-cancel-button {
       -webkit-appearance: none; }
   input:focus:invalid {
-    color: firebrick;
-    border-color: #ed365b; }
+    color: crimson;
+    border-color: #f48c7f; }
     input:focus:invalid:focus {
-      border-color: crimson;
-      -ms-box-shadow: 0 0 6px #f16581;
-      -o-box-shadow: 0 0 6px #f16581;
-      -moz-box-shadow: 0 0 6px #f16581;
-      -webkit-box-shadow: 0 0 6px #f16581;
-      box-shadow: 0 0 6px #f16581; }
+      border-color: #f48c7f;
+      -ms-box-shadow: 0 0 6px #f48c7f;
+      -o-box-shadow: 0 0 6px #f48c7f;
+      -moz-box-shadow: 0 0 6px #f48c7f;
+      -webkit-box-shadow: 0 0 6px #f48c7f;
+      box-shadow: 0 0 6px #f48c7f; }
 
 button {
   color: white;
-  font: 100 20px/20px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 100%;
   vertical-align: middle;
-  background-color: red;
+  background-color: #f48c7f;
   *overflow: visible;
-  border-radius: 4px;
-  border: 1px solid #e60000;
+  border-radius: 0;
+  border: 1px solid #f48c7f;
   outline: none;
   cursor: pointer;
   -webkit-appearance: button;
@@ -373,11 +372,11 @@ button {
     padding: 0;
     border: 0; }
   button:hover {
-    background-color: #ff1a1a;
-    border-color: red; }
+    background-color: #f69d92;
+    border-color: #f69d92; }
   button:active {
-    background-color: #e60000;
-    border-color: #cc0000;
+    background-color: #f38476;
+    border-color: #f38476;
     -ms-transition: none;
     -o-transition: none;
     -moz-transition: none;
@@ -385,14 +384,14 @@ button {
     transition: none; }
 
 select {
-  color: darkgray;
-  font: 100 20px/20px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #58595b;
+  font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 100%;
   vertical-align: middle;
   background: white;
-  height: 20px;
+  height: 24px;
   *margin-top: 4px;
-  border: 1px solid lightgray;
+  border: 1px solid #f48c7f;
   border-radius: 4px;
   outline: none;
   cursor: pointer; }
@@ -402,33 +401,33 @@ select {
     background: #f8f8f8;
     cursor: not-allowed; }
   select:focus {
-    outline: thin dotted #66d9ff;
+    outline: thin dotted #f48c7f;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
     select:focus:invalid {
-      color: firebrick;
-      border-color: #ed365b; }
+      color: crimson;
+      border-color: #f48c7f; }
       select:focus:invalid:focus {
-        border-color: crimson;
-        -ms-box-shadow: 0 0 6px #f16581;
-        -o-box-shadow: 0 0 6px #f16581;
-        -moz-box-shadow: 0 0 6px #f16581;
-        -webkit-box-shadow: 0 0 6px #f16581;
-        box-shadow: 0 0 6px #f16581; }
+        border-color: #f48c7f;
+        -ms-box-shadow: 0 0 6px #f48c7f;
+        -o-box-shadow: 0 0 6px #f48c7f;
+        -moz-box-shadow: 0 0 6px #f48c7f;
+        -webkit-box-shadow: 0 0 6px #f48c7f;
+        box-shadow: 0 0 6px #f48c7f; }
 
 option {
   outline: none; }
 
 textarea {
-  color: darkgray;
-  font: 100 20px/20px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #58595b;
+  font: 300 18px/24px "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 100%;
   vertical-align: top;
   background: white;
   overflow: auto;
   height: auto;
-  border: 1px solid lightgray;
-  border-radius: 4px;
+  border: 1px solid #f48c7f;
+  border-radius: 0;
   outline: none;
   -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -441,34 +440,34 @@ textarea {
   -webkit-transition: border 0.2s linear, box-shadow 0.2s linear;
   transition: border 0.2s linear, box-shadow 0.2s linear; }
   textarea:-moz-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   textarea:-ms-input-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   textarea::-webkit-input-placeholder {
-    color: #c3c3c3; }
+    color: #bcbec0; }
   textarea[disabled], textarea[readonly] {
     background: #f8f8f8;
     cursor: not-allowed; }
   textarea:focus {
-    border-color: #33ccff;
+    border-color: #f48c7f;
     outline: 0;
     outline: thin dotted \9;
     /* IE6-9 */
-    -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #66d9ff;
-    -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #66d9ff;
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #66d9ff;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #66d9ff;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #66d9ff; }
+    -ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #f48c7f;
+    -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #f48c7f;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #f48c7f;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #f48c7f;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #f48c7f; }
     textarea:focus:invalid {
-      color: firebrick;
-      border-color: #ed365b; }
+      color: crimson;
+      border-color: #f48c7f; }
       textarea:focus:invalid:focus {
-        border-color: crimson;
-        -ms-box-shadow: 0 0 6px #f16581;
-        -o-box-shadow: 0 0 6px #f16581;
-        -moz-box-shadow: 0 0 6px #f16581;
-        -webkit-box-shadow: 0 0 6px #f16581;
-        box-shadow: 0 0 6px #f16581; }
+        border-color: #f48c7f;
+        -ms-box-shadow: 0 0 6px #f48c7f;
+        -o-box-shadow: 0 0 6px #f48c7f;
+        -moz-box-shadow: 0 0 6px #f48c7f;
+        -webkit-box-shadow: 0 0 6px #f48c7f;
+        box-shadow: 0 0 6px #f48c7f; }
 
 /* -------------------- GLOBAL CLASSES -------------------- */
 .wrapper {
@@ -527,6 +526,7 @@ textarea {
 .lowercase {
   text-transform: lowercase; }
 
+/* -------------------- FONTS -------------------- */
 /* -------------------- PAGE HEADER -------------------- */
 /* -------------------- PAGE CONTENT -------------------- */
 /* -------------------- PAGE FOOTER -------------------- */

@@ -1,46 +1,47 @@
-// GLOBAL VARIABLES AND FUNCTIONS USED THROUGHOUT THE PROJECT
+// Add Variable Overrides here
 
 // Font Families
-$helvetica: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-$times: "Times New Roman", Times, Serif;
-$georgia: "Georgia", Serif;
+$muli: "Muli", $helvetica;
+$roboto: "Roboto", $helvetica;
 
 // Font Settings
-$font: $helvetica;
-$baseFontSize: 20;
+$font: $roboto;
+$baseFontSize: 18;
 $baseLineHeight: 24;
-$baseFontWeight: 100;
-$headerFontWeight: 700;
+$baseFontWeight: 300;
+$baseFontWeightStrong: 500;
+$headerFontWeight: 100;
+$headerFontWeightStrong: 300;
 
 // Color Scheme
-$primary: darkgray;
-$secondary: gray;
-$tertiary: lightgray;
-$accent: red;
-$support: gainsboro;
+$primary: #f48c7f;		// [Pink]
+$secondary: #bcbec0;	// [Light Gray]
+$tertiary: #58595b;		// [Slate Gray]
+$accent: red;			// Links and eye-catching elements
+$support: lightblue;	// [Baby Blue] "Stand out" elements
 
 // General Variables
-$bodyTextColor: black;
+$bodyTextColor: #58595b;
 $bodyBackgroundColor: white;
-$linkColor: blue;
+$linkColor: $primary;
 $linkHoverColor: lightblue;
 $selectionColor: white;
-$selectionBackgroundColor: red;
-$formElementHeight: 20;
+$selectionBackgroundColor: lighten($tertiary, 20%);
+$formElementHeight: 24;
 
 // Input Field Variables
-$inputTextColor: $primary;
-$inputPlaceholderColor: lighten($primary, 10%);
+$inputTextColor: $tertiary;
+$inputPlaceholderColor: $secondary;
 $inputBackgroundColor: white;
-$inputBorderColor: lightgray;
-$inputFocusBorderColor: lighten(deepskyblue, 10%);
-$inputFocusGlowColor: lighten(deepskyblue, 20%);
+$inputBorderColor: $primary;
+$inputFocusBorderColor: $primary;
+$inputFocusGlowColor: $primary;
 $inputDisabledBackgroundColor: lighten(gainsboro, 11%);
-$inputInvalidTextColor: firebrick;
-$inputInvalidBorderColor: lighten(crimson, 10%);
-$inputInvalidFocusBorderColor: crimson;
-$inputInvalidFocusGlowColor: lighten(crimson, 20%);
-$inputBorderRadius: 4px;
+$inputInvalidTextColor: crimson;
+$inputInvalidBorderColor: $primary;
+$inputInvalidFocusBorderColor: $primary;
+$inputInvalidFocusGlowColor: $primary;
+$inputBorderRadius: 0;
 
 // Select Field Variables
 $selectTextColor: $inputTextColor;
@@ -66,14 +67,14 @@ $textareaInvalidTextColor: $inputInvalidTextColor;
 $textareaInvalidBorderColor: $inputInvalidBorderColor;
 $textareaInvalidFocusBorderColor: $inputInvalidFocusBorderColor;
 $textareaInvalidFocusGlowColor: $inputInvalidFocusGlowColor;
-$textareaBorderRadius: 4px;
+$textareaBorderRadius: $inputBorderRadius;
 
 // Button Variables
 $buttonTextColor: white;
-$buttonBackgroundColor: $accent;
-$buttonBorderColor: darken($accent, 5%);
-$buttonHoverBackgroundColor: lighten($buttonBackgroundColor, 5%);
-$buttonHoverBorderColor: lighten($buttonBorderColor, 5%);
-$buttonActiveBackgroundColor: darken($buttonBackgroundColor, 5%);
-$buttonActiveBorderColor: darken($buttonBorderColor, 5%);
-$buttonBorderRadius: 4px;
+$buttonBackgroundColor: $primary;
+$buttonBorderColor: $primary;
+$buttonHoverBackgroundColor: lighten($buttonBackgroundColor, 4%);
+$buttonHoverBorderColor: lighten($buttonBorderColor, 4%);
+$buttonActiveBackgroundColor: darken($buttonBackgroundColor, 2%);
+$buttonActiveBorderColor: darken($buttonBorderColor, 2%);
+$buttonBorderRadius: 0;
