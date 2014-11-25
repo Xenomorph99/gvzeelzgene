@@ -15,22 +15,22 @@ body { color: black; font: 100 20px/24px "HelveticaNeue-Light", "Helvetica Neue 
 ::selection { color: white; background-color: red; }
 
 /* -------------------- TAGS ASSOCIATED WITH TEXT -------------------- */
-h1 { font-size: 52px; line-height: 62px; font-weight: 700; }
+h1 { font: 700 52px/62px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h1 strong { font-weight: 700; }
 
-h2 { font-size: 40px; line-height: 50px; font-weight: 700; }
+h2 { font: 700 40px/50px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h2 strong { font-weight: 700; }
 
-h3 { font-size: 28px; line-height: 36px; font-weight: 700; }
+h3 { font: 700 28px/36px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h3 strong { font-weight: 700; }
 
-h4 { font-size: 26px; line-height: 30px; font-weight: 700; }
+h4 { font: 700 26px/30px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h4 strong { font-weight: 700; }
 
-h5 { font-size: 22px; line-height: 26px; font-weight: 700; }
+h5 { font: 700 22px/26px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h5 strong { font-weight: 700; }
 
-h6 { font-size: 20px; line-height: 24px; font-weight: 700; }
+h6 { font: 700 20px/24px "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 h6 strong { font-weight: 700; }
 
 p { font-size: 20px; line-height: 24px; margin-bottom: 24px; }

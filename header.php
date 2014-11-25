@@ -40,8 +40,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Muli|Roboto:300,500,300italic,500italic' rel='stylesheet' type='text/css'>
 
 	<?php wp_head(); ?>
-
-	<?php get_template_part( 'inc/analytics' ); ?>
 </head>
 
 <body <?php body_class(); ?>>

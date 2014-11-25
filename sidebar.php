@@ -12,13 +12,8 @@
 <div id="sidebar">
 	<h2>Sidebar</h2>
 	<ul id="popular-posts">
-	<?php
-
-		$popular_posts = get_posts( array( 'include' => Popular::get_popular( 5 ) ) );
-		foreach( $popular_posts as $popular ) { ?>
-			<li class="popular-post"><a href="<?php echo get_permalink( $popular->ID ); ?>"><?php echo $popular->post_title; ?></a></li>
-		<?php }
-
-	?>
+	<?php foreach( Popular::get_popular() as $post_id ) : ?>
+		<li class="popular-post"><a href="<?php echo get_permalink( $post_id ); ?>"><?php echo get_the_title( $post_id ); ?></a></li>
+	<?php endforeach; ?>
 	</ul><!--#popular-posts-->
 </div><!--#sidebar-->

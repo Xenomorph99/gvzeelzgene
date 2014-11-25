@@ -10,10 +10,71 @@
 
 class Theme {
 
+	public static $category_form_table = [
+		'name' => 'category_form',
+		'prefix' => 'cat',
+		'version' => '1.0',
+		'structure' => [
+			'cat_img' => [
+				'sql' => 'VARCHAR(255)',
+				'type' => 'text',
+				'label' => 'Category Image'
+			]
+		]
+	];
+
+	public static $vehicles_table = [
+		'name' => 'vehicles',
+		'prefix' => 'veh',
+		'version' => '1.1',
+		'structure' => [
+			'name' => [
+				'sql' => 'VARCHAR(255)',
+				'type' => 'text'
+			],
+			'type' => [
+				'sql' => 'VARCHAR(255)',
+				'type' => 'select',
+				'options' => [
+					'car' => 'Car',
+					'truck' => 'Truck',
+					'airplane' => 'Airplane',
+					'bus' => 'Bus',
+					'subway' => 'Subway',
+					'bicycle' => 'Bicycle'
+				]
+			],
+			'speed' => [
+				'sql' => 'BIGINT(20)',
+				'default' => '10',
+				'type' => 'number'
+			]
+		]
+	];
+
 	public function __construct() {
 
-		// Run Wordpress hooks
+		$this->setup_shortcodes();
 		$this->wp_hooks();
+
+	}
+
+	protected function setup_shortcodes() {
+
+		$arr = array(
+			'offer' => array( &$this, 'shortcode_offer' ),
+			'vehicle' => array( &$this, 'shortcode_vehicle' )
+		);
+
+		new Shortcodes( $arr );
+
+	}
+
+	public static function shortcode_offer( $atts ) {
+
+	}
+
+	public static function shortcode_vehicle( $atts ) {
 
 	}
 
@@ -50,17 +111,32 @@ class Theme {
 		// Register custom post types
 		static::register_custom_post_types();
 
+		// Register custom taxonomies
+		static::register_custom_taxonomies();
+
 		// Register admin menus
 		static::register_admin_menus();
 
 		// Register custom meta boxes
 		static::register_custom_meta_boxes();
 
+		// Register social media
+		static::register_social_media();
+
 		// Register mailing list
 		static::register_mailing_list();
 
 		// Register popular tracking (views & likes)
 		static::register_popular_tracking();
+
+		// Register custom category form fields
+		static::register_category_forms();
+
+		// Register tracking
+		static::register_tracking();
+
+		// Register documentation
+		static::register_docs();
 
 	}
 
@@ -76,15 +152,43 @@ class Theme {
 
 	}
 
+	protected static function register_custom_taxonomies() {
+
+		$args = array(
+			'name_plural' => 'Writers',
+			'name_singular' => 'Writer',
+			'slug' => 'writer'
+		);
+
+		//new Taxonomy( $args );
+
+	}
+
 	protected static function register_admin_menus() {
 
-		// new Admin_Menu();
+		//new Admin_Menu();
 
 	}
 
 	protected static function register_custom_meta_boxes() {
 
-		// new Meta_Box();
+		$vehicles = array(
+			'title' => 'Vehicles',
+			'recursive' => true,
+			'table' => static::$vehicles_table
+		);
+
+		new Meta_Box( $vehicles );
+
+	}
+
+	protected static function register_social_media() {
+
+		$args = array(
+			'inflate' => true
+		);
+
+		$Social = new Social( $args );
 
 	}
 
@@ -103,6 +207,28 @@ class Theme {
 		);
 
 		$Popular = new Popular( $args );
+
+	}
+
+	public static function register_category_forms() {
+
+		$args = array(
+			'table' => static::$category_form_table
+		);
+
+		$Category_Form = new Category_Form( $args );
+
+	}
+
+	public static function register_tracking() {
+
+		$Tracking = new Tracking();
+
+	}
+
+	public static function register_docs() {
+
+		//$Docs = new Docs();
 
 	}
 
@@ -136,7 +262,7 @@ class Theme {
 
 		// Scripts
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'admin', get_template_directory_uri() . '/js/admin.js', array( 'jquery' ), '1.0' );
+		//wp_enqueue_script( 'admin', get_template_directory_uri() . '/js/admin.js', array( 'jquery' ), '1.0' );
 
 	}
 
